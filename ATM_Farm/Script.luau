@@ -1,1 +1,1 @@
-loadstring(game:HttpGet("https://github.com/SixtyMarsHD/Dahood/blob/main/ATM_Farm/Module/Main.luau"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/ATM_Farm/Module/Main.luau"))()
