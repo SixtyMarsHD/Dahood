@@ -106,8 +106,38 @@ local function ChatUpdate(player)
 			if string.sub(msg, 1, 3) == ".tp" then
 				Update()
 				HumRoot.CFrame = player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+			elseif string.sub(msg, 1, 5) == ".mask" then
+				if Char and not Char:FindFirstChild("In-gameMask") then
+					if Char:FindFirstChild("[Mask]") then
+						local Mask = Char:FindFirstChild("[Mask]")
+						Mask:Activate()
+						Mask.Parent = Backpack
+					elseif Backpack:FindFirstChild("[Mask]") then
+						local Mask = Backpack:FindFirstChild("[Mask]")
+						Mask.Parent = Char
+						Mask:Activate()
+						Mask.Parent = Backpack
+					elseif not Backpack:FindFirstChild("[Mask]") then
+						local MaskBuyFolder = workspace:FindFirstChild("Ignored"):FindFirstChild("Shop"):FindFirstChild("[Surgeon Mask] - $27")
+						local ClickDetector = MaskBuyFolder:FindFirstChild("ClickDetector")
+						local Part = MaskBuyFolder:FindFirstChild("Head")
+						local oldpos = HumRoot.CFrame
+						if ClickDetector then
+							HumRoot.CFrame = Part.CFrame + Vector3.new(0, 3, 0)
+							wait(0.25)
+								fireclickdetector(ClickDetector)		
+							local Mask = Backpack:WaitForChild("[Mask]", 5)
+							if Char and HumRoot and Mask then
+								Mask.Parent = Char
+								Mask:Activate()
+								Mask.Parent = Backpack
+							end
+							HumRoot.CFrame = oldpos + Vector3.new(0, 3, 0)
+						end
+					end
+				end
 			end
-			
+
 			--ScriptControl
 			if string.sub(msg, 1, 6) == ".stop " then
 				print("stop")
