@@ -120,8 +120,8 @@ local function ChatUpdate(player)
 				DropCash("Drop")
 			end
 
-			if string.sub(msg, 1, 10) == ".AutoDrop " then
-				local args = string.sub(msg, 11)
+			if string.sub(msg, 1, 7) == ".ADrop " then
+				local args = string.sub(msg, 8)
 				local split = string.split(args, " ")
 
 				local boolStr = (split[1] or ""):lower()
