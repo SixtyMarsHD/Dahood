@@ -1,7 +1,7 @@
 getgenv().SharedData = {
     ATM = {
        Farming = false,
-    }
+    },
 
     CashAura = {
        Farming = false,
