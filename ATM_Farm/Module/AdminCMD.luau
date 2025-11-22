@@ -37,26 +37,28 @@ local function isAdmin(name)
 	return false
 end
 
-local function Update()
-	Char = Player.Character or Player.CharacterAdded:Wait()
-	HumRoot = Char:WaitForChild("HumanoidRootPart")
-	Humanoid = Char:WaitForChild("Humanoid")
-	Backpack = Player.Backpack
-
+local function Setup()
 	local Combat = Char:WaitForChild("Combat")
 	local Wallet = Char:WaitForChild("[Wallet]")
 	if Combat then
 		Combat.Parent = Char
-		task.delay(0.1, function()
+		task.delay(1, function()
 			Combat.Parent = Backpack
 		end)
 	end
 	if Wallet then
 		Wallet.Parent = Char
-		task.delay(0.1, function()
+		task.delay(1, function()
 			Wallet.Parent = Backpack
 		end)
 	end
+end
+
+local function Update()
+	Char = Player.Character or Player.CharacterAdded:Wait()
+	HumRoot = Char:WaitForChild("HumanoidRootPart")
+	Humanoid = Char:WaitForChild("Humanoid")
+	Backpack = Player.Backpack
 end
 
 local function ButtonClick(Button)
@@ -167,6 +169,21 @@ local function ChatUpdate(player)
 	end)
 end
 
+local function HumanoidDied()
+	if Char and Char:WaitForChild("BodyEffects") and Char:WaitForChild("BodyEffects"):WaitForChild("Dead") then
+		local Dead_Value = Char:WaitForChild("BodyEffects"):WaitForChild("Dead")
+		Dead_Value:GetPropertyChangedSignal("Value"):Connect(function()
+			if Dead_Value.Value == true then
+			end
+		end)
+	end
+end
+
+Player.CharacterAdded:Connect(function()
+	Update()
+	Setup()
+	HumanoidDied()
+end)
 
 for _, player in ipairs(PLAYERS:GetPlayers()) do
 	ChatUpdate(player)
@@ -176,3 +193,4 @@ PLAYERS.PlayerAdded:Connect(function(player)
 	ChatUpdate(player)
 end)
 --FirstExecute
+Setup()
