@@ -1,3 +1,5 @@
+local TextChatService = game:GetService("TextChatService")
+
 local PLAYERS = game:GetService("Players")
 local Player = game.Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
@@ -39,16 +41,20 @@ end
 
 local function Setup()
 	local Combat = Backpack:WaitForChild("Combat")
-	local Wallet = Backpack:WaitForChild("[Wallet]")
 	if Combat then
+		print("Found Combat")
 		Combat.Parent = Char
-		task.delay(0.1, function()
+		task.delay(1, function()
+			print("Returning Combat to Backpack")
 			Combat.Parent = Backpack
 		end)
 	end
+	local Wallet = Backpack:WaitForChild("[Wallet]")
 	if Wallet then
+		print("Found Wallet")
 		Wallet.Parent = Char
-		task.delay(0.1, function()
+		task.delay(1, function()
+			print("Returning Wallet to Backpack")
 			Wallet.Parent = Backpack
 		end)
 	end
@@ -106,6 +112,24 @@ local function ChatUpdate(player)
 			if string.sub(msg, 1, 3) == ".tp" then
 				Update()
 				HumRoot.CFrame = player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+			elseif string.sub(msg, 1, 5) == ".msg " then
+				local msg = string.sub(msg, 6)
+				local chatChannel = TextChatService:FindChannel("All")
+				if chatChannel then
+					chatChannel:SendAsync(msg)
+				end
+			elseif string.sub(msg, 1, 6) == ".Amsg" then
+				local args = string.sub(msg, 7)
+				local split = string.split(args, " ")
+				local msg = split[1] or "ERROR"
+				local cooldown = tonumber(split[2]) or 5
+
+				local chatChannel = TextChatService:FindChannel("All")
+				if chatChannel then
+					chatChannel:SendAsync(msg)
+				end
+				
+			
 			elseif string.sub(msg, 1, 5) == ".mask" then
 				if Char and not Char:FindFirstChild("In-gameMask") then
 					if Char:FindFirstChild("[Mask]") then
