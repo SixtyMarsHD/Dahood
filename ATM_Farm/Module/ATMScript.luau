@@ -257,6 +257,10 @@ task.spawn(function()
 	while wait() do
 		
 		task.spawn(function()
+			VALUES.Farming = getgenv().SharedData.ATM.Farming
+		end)
+
+		task.spawn(function()
 			if not VALUES.Value.Respawn and not VALUES.State.ATM and VALUES.Farming then
 				VALUES.State.ATM = true
 				FlyStud("spawn")
