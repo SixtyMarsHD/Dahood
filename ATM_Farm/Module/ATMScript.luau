@@ -165,9 +165,9 @@ local function ATM()
 								local Head = Model:FindFirstChild("Head")
 								local headpos = Vector3.new(math.round(Head.Position.X), math.round(Head.Position.Y), math.round(Head.Position.Z))
 								if headpos == Vector3.new(-624, 25, -285) then
-									return -1
+									return -1.5
 								elseif headpos == Vector3.new(-627, 25, -285) then
-									return 1
+									return 1.5
 								end
 								return 0
 							end
