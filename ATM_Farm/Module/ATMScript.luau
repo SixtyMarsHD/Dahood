@@ -1,3 +1,29 @@
+local module = {}
+
+function module.VALUES()
+
+	local Value = {
+    Respawn = false,
+    noclip = true
+	}
+
+	local State = {
+    ATM = false,
+    Others = false,
+    AntiStomp = false,
+    AntiAFK = false
+	}
+
+	return { Value, State }
+end
+
+
+
+
+return module
+
+
+
 local VirtualUser = game:GetService("VirtualUser")
 
 local Player = game.Players.LocalPlayer
@@ -9,10 +35,6 @@ local PlayerGui = Player:WaitForChild("PlayerGui")
 
 local MainScreenGui = PlayerGui:WaitForChild("MainScreenGui")
 local CashierFolder = workspace:WaitForChild("Cashiers")
-
-getgenv().ATM_AutoFarm = {
-	Farming = true
-}
 
 local VALUES = {
 	Farming = getgenv().ATM_AutoFarm.Farming,

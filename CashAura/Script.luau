@@ -11,4 +11,4 @@ getgenv().Settings = {
 	["Void"] = false
 }
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/CashAura/Module/Main.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/CashAura/Module/Main.luau"))()
