@@ -265,7 +265,7 @@ task.spawn(function()
 		end)
 		
 		task.spawn(function()
-			if VALUES.Farming and not state_fastcollect then
+			if VALUES.Farming and not state_fastcollect and not VALUES.State.AntiStomp then
 				state_fastcollect = true
 				for _, part in pairs(workspace:WaitForChild("Ignored"):WaitForChild("Drop"):GetChildren()) do
 					if part:IsA("BasePart") then

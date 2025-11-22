@@ -6,6 +6,7 @@ local MainScreenGui = PlayerGui:WaitForChild("MainScreenGui")
 local Char = Player.Character or Player.CharacterAdded:Wait()
 local HumRoot = Char:WaitForChild("HumanoidRootPart")
 local Humanoid = Char:WaitForChild("Humanoid")
+local Backpack = Player.Backpack
 
 local Admins = {
 	"SixtyMarsHD"
@@ -40,6 +41,22 @@ local function Update()
 	Char = Player.Character or Player.CharacterAdded:Wait()
 	HumRoot = Char:WaitForChild("HumanoidRootPart")
 	Humanoid = Char:WaitForChild("Humanoid")
+	Backpack = Player.Backpack
+
+	local Combat = Char:WaitForChild("Combat")
+	local Wallet = Char:WaitForChild("[Wallet]")
+	if Combat then
+		Combat.Parent = Char
+		task.delay(0.1, function()
+			Combat.Parent = Backpack
+		end)
+	end
+	if Wallet then
+		Wallet.Parent = Char
+		task.delay(0.1, function()
+			Wallet.Parent = Backpack
+		end)
+	end
 end
 
 local function ButtonClick(Button)
