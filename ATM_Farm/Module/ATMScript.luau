@@ -283,7 +283,7 @@ task.spawn(function()
 						print("fastcollecting - 3")
 						if part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") then
 							print("fastcollecting - 4")
-							if (part.Position - Char.Position).Magnitude <= 10 then
+							if (part.Position - HumRoot.Position).Magnitude <= 10 then
 								print("fastcollecting - 5")
 								local ClickDetector = part:FindFirstChild("ClickDetector")
 								if ClickDetector then
