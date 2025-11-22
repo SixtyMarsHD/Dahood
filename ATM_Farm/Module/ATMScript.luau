@@ -1,29 +1,3 @@
-local module = {}
-
-function module.VALUES()
-
-	local Value = {
-    Respawn = false,
-    noclip = true
-	}
-
-	local State = {
-    ATM = false,
-    Others = false,
-    AntiStomp = false,
-    AntiAFK = false
-	}
-
-	return { Value, State }
-end
-
-
-
-
-return module
-
-
-
 local VirtualUser = game:GetService("VirtualUser")
 
 local Player = game.Players.LocalPlayer
@@ -37,7 +11,7 @@ local MainScreenGui = PlayerGui:WaitForChild("MainScreenGui")
 local CashierFolder = workspace:WaitForChild("Cashiers")
 
 local VALUES = {
-	Farming = getgenv().ATM_AutoFarm.Farming,
+	Farming = getgenv().SharedData.ATM.Farming,
 	FlyStud = nil,
 	
 	Value = {
@@ -52,6 +26,7 @@ local VALUES = {
 		AntiAFK = false
 	}
 }
+print(VALUES.Farming)
 
 local function Setup()
 	game:GetService("RunService").Stepped:Connect(function()
@@ -312,9 +287,3 @@ HumanoidDied()
 AntiSeat()
 Setup()
 FlyStud("spawn")
-
-task.spawn(function()
-	while wait(1) do
-		print(VALUES.Farming, getgenv().ATM_AutoFarm.Farming)
-	end
-end)

@@ -26,12 +26,7 @@ local VALUES = {
 		AutoCashDrop_value = 100
 	}
 }
-if getgenv().ATM_AutoFarm and getgenv().ATM_AutoFarm.Farming ~= nil then
-	VALUES.ScriptControl.ATM_AutoFarm = getgenv().ATM_AutoFarm.Farming
-	print("registerd")
-	print(VALUES.ScriptControl.ATM_AutoFarm)
-	print(getgenv().ATM_AutoFarm.Farming)
-end
+
 
 local function isAdmin(name)
 	for _, adminName in ipairs(Admins) do
@@ -100,13 +95,13 @@ local function ChatUpdate(player)
 			if string.sub(msg, 1, 6) == ".stop " then
 				print("stop")
 				if string.sub(msg, 7, 14) == "ATM_Farm" then
-					VALUES.ScriptControl.ATM_AutoFarm = false
+					getgenv().SharedData.ATM.Farming = false
 					print("autofarm stop")
 				end
 			elseif string.sub(msg, 1, 7) == ".start " then
 				print("start")
 				if string.sub(msg, 8, 15) == "ATM_Farm" then
-					VALUES.ScriptControl.ATM_AutoFarm = true
+					getgenv().SharedData.ATM.Farming = true
 					print("autofarm start")
 				end
 			end
