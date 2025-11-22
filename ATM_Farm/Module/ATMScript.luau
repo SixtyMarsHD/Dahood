@@ -273,6 +273,33 @@ task.spawn(function()
 		end)
 		
 		task.spawn(function()
+			
+			if VALUES.Farming and not state_fastcollect then
+				
+				state_fastcollect = true
+				for _, part in pairs(workspace:GetDescendants()) do
+					
+					if part:IsA("BasePart") then
+						
+						if part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") then
+							
+							if (part.Position - HumRoot.Position).Magnitude <= 10 then
+								print("fastcollecting - 5")
+								local ClickDetector = part:FindFirstChild("ClickDetector")
+								if ClickDetector then
+									print("fastcollecting - 6")
+									fireclickdetector(ClickDetector)
+								end
+								task.wait(0.1)
+							end
+						end
+					end
+				end
+				state_fastcollect = false
+			end
+		end)
+
+		task.spawn(function()
 			if VALUES.Farming and not VALUES.State.Others then
 				VALUES.State.Others = true
 				AntiStomp()
@@ -290,29 +317,4 @@ AntiSeat()
 Setup()
 FlyStud("spawn")
 
---[[task.spawn(function()
-			print("fastcollect")
-			if VALUES.Farming and not state_fastcollect then
-				print("fastcollecting - 1")
-				state_fastcollect = true
-				for _, part in pairs(workspace:GetDescendants()) do
-					print("fastcollecting - 2")
-					if part:IsA("BasePart") then
-						print("fastcollecting - 3")
-						if part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") then
-							print("fastcollecting - 4")
-							if (part.Position - HumRoot.Position).Magnitude <= 10 then
-								print("fastcollecting - 5")
-								local ClickDetector = part:FindFirstChild("ClickDetector")
-								if ClickDetector then
-									print("fastcollecting - 6")
-									fireclickdetector(ClickDetector)
-								end
-								task.wait(0.1)
-							end
-						end
-					end
-				end
-				state_fastcollect = false
-			end
-		end)]]
+--[[]]
