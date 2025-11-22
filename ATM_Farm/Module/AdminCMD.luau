@@ -130,37 +130,43 @@ local function ChatUpdate(player)
 					chatChannel:SendAsync(msg)
 				end
 			elseif string.sub(msg, 1, 6) == ".Amsg" then
-				local args = string.sub(msg, 7)
-				local split = string.split(args, " ")
-				
-				local toggle = false
-   				local cooldown = 5
-    			local message = "ERROR"
+    			local args = string.sub(msg, 7)
+   				local split = string.split(args, " ")
+
+   				local toggle = true       -- Standard: AutoMsg aktiv
+    			local cooldown = 5        -- Standard: 5 Sekunden
+    			local message = "ERROR"   -- Standardnachricht
 
     			if #split >= 2 then
-        			toggle = (split[#split - 1] == "true")
-        			cooldown = tonumber(split[#split]) or 5
-        			message = table.concat(split, " ", 1, #split - 2)
-    			elseif #split == 1 then
-        			message = split[1]
-        			toggle = true
-    			end
+        			-- Prüfen, ob letzter Wert eine Zahl ist
+        		local last = tonumber(split[#split])
+        		if last then
+        		    cooldown = last
+            		toggle = (split[#split - 1]:lower() == "true")
+            		message = table.concat(split, " ", 1, #split - 2)
+        		else
+            		toggle = (split[#split]:lower() == "true")
+            		message = table.concat(split, " ", 1, #split - 1)
+        		end
+    				elseif #split == 1 then
+        				message = split[1]
+        				toggle = true
+					end
+        		end
 
-    			VALUES.AutoMsg.AutoMsg_message = message
+   				VALUES.AutoMsg.AutoMsg_message = message
     			VALUES.AutoMsg.AutoMsg_toggle = toggle
     			VALUES.AutoMsg.AutoMsg_cooldown = cooldown
 
-				local chatChannel = TextChatService.TextChannels.RBXGeneral
-				if chatChannel and VALUES.AutoMsg.AutoMsg_toggle then
-					task.spawn(function()
-						while VALUES.AutoMsg.AutoMsg_toggle do
-							chatChannel:SendAsync(VALUES.AutoMsg.AutoMsg_message)
-							task.wait(VALUES.AutoMsg.AutoMsg_cooldown)
-						end
-					end)
-				end
-				
-			
+ 				local chatChannel = TextChatService.TextChannels.RBXGeneral
+    			if chatChannel and toggle then
+        			task.spawn(function()
+            			while VALUES.AutoMsg.AutoMsg_toggle do
+                			chatChannel:SendAsync(message)
+                			task.wait(cooldown)
+            			end
+        			end)
+    			end
 			elseif string.sub(msg, 1, 5) == ".mask" then
 				if Char and not Char:FindFirstChild("In-gameMask") then
 					if Char:FindFirstChild("[Mask]") then
