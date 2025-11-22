@@ -273,14 +273,21 @@ task.spawn(function()
 		end)
 		
 		task.spawn(function()
+			print("fastcollect")
 			if VALUES.Farming and not state_fastcollect then
+				print("fastcollecting - 1")
 				state_fastcollect = true
 				for _, part in pairs(workspace:GetDescendants()) do
+					print("fastcollecting - 2")
 					if part:IsA("BasePart") then
+						print("fastcollecting - 3")
 						if part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") then
+							print("fastcollecting - 4")
 							if (part.Position - Char.Position).Magnitude <= 10 then
+								print("fastcollecting - 5")
 								local ClickDetector = part:FindFirstChild("ClickDetector")
 								if ClickDetector then
+									print("fastcollecting - 6")
 									fireclickdetector(ClickDetector)
 								end
 								task.wait(0.1)
