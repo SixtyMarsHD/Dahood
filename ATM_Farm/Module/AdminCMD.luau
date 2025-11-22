@@ -103,6 +103,7 @@ local function ChatUpdate(player)
 				if string.sub(msg, 8, 15) == "ATM_Farm" then
 					getgenv().SharedData.ATM.Farming = true
 					print("autofarm start")
+					print(getgenv().SharedData.ATM.Farming)
 				end
 			end
 
