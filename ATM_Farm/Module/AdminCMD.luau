@@ -19,7 +19,6 @@ local VALUES = {
 		ATM_AutoFarm = nil,
 	},
 	
-	
 	CashDrop = {
 		CashDrop_value = 100
 	},
@@ -27,7 +26,15 @@ local VALUES = {
 	AutoCashDrop = {
 		AutoCashDrop_toggle = false,
 		AutoCashDrop_value = 100
+	},
+
+	AutoMsg = {
+		AutoMsg_toggle = false,
+		AutoMsg_message = "Hello World",
+		AutoMsg_cooldown = 5
 	}
+
+
 }
 
 local function isAdmin(name)
@@ -114,19 +121,25 @@ local function ChatUpdate(player)
 				HumRoot.CFrame = player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
 			elseif string.sub(msg, 1, 5) == ".msg " then
 				local msg = string.sub(msg, 6)
-				local chatChannel = TextChatService:FindChannel("All")
+				local chatChannel = TextChatService.TextChannels.RBXGeneral
 				if chatChannel then
 					chatChannel:SendAsync(msg)
 				end
 			elseif string.sub(msg, 1, 6) == ".Amsg" then
 				local args = string.sub(msg, 7)
 				local split = string.split(args, " ")
-				local msg = split[1] or "ERROR"
-				local cooldown = tonumber(split[2]) or 5
+				VALUES.AutoMsg.AutoMsg_message =  table.concat(split, " ", 1, #split - 2) or "ERROR"
+				VALUES.AutoMsg.AutoMsg_toggle = (split[#split - 1] == "true")
+				VALUES.AutoMsg.AutoMsg_cooldown = tonumber(split[#split]) or 5
 
-				local chatChannel = TextChatService:FindChannel("All")
-				if chatChannel then
-					chatChannel:SendAsync(msg)
+				local chatChannel = TextChatService.TextChannels.RBXGeneral
+				if chatChannel and VALUES.AutoMsg.AutoMsg_toggle then
+					task.spawn(function()
+						while VALUES.AutoMsg.AutoMsg_toggle do
+							chatChannel:SendAsync(VALUES.AutoMsg.AutoMsg_message)
+							wait(VALUES.AutoMsg.AutoMsg_cooldown)
+						end
+					end)
 				end
 				
 			
