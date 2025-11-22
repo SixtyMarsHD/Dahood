@@ -119,6 +119,10 @@ local function ChatUpdate(player)
 			if string.sub(msg, 1, 3) == ".tp" then
 				Update()
 				HumRoot.CFrame = player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+			elseif string.sub(msg, 1, 4) == ".fix" then
+				Setup()
+			elseif string.sub(msg, 1, 6) == ".reset" then
+				Humanoid.Health = 0
 			elseif string.sub(msg, 1, 5) == ".msg " then
 				local msg = string.sub(msg, 6)
 				local chatChannel = TextChatService.TextChannels.RBXGeneral
@@ -128,16 +132,30 @@ local function ChatUpdate(player)
 			elseif string.sub(msg, 1, 6) == ".Amsg" then
 				local args = string.sub(msg, 7)
 				local split = string.split(args, " ")
-				VALUES.AutoMsg.AutoMsg_message =  table.concat(split, " ", 1, #split - 2) or "ERROR"
-				VALUES.AutoMsg.AutoMsg_toggle = (split[#split - 1] == "true")
-				VALUES.AutoMsg.AutoMsg_cooldown = tonumber(split[#split]) or 5
+				
+				local toggle = false
+   				local cooldown = 5
+    			local message = "ERROR"
+
+    			if #split >= 2 then
+        			toggle = (split[#split - 1] == "true")
+        			cooldown = tonumber(split[#split]) or 5
+        			message = table.concat(split, " ", 1, #split - 2)
+    			elseif #split == 1 then
+        			message = split[1]
+        			toggle = true
+    			end
+
+    			VALUES.AutoMsg.AutoMsg_message = message
+    			VALUES.AutoMsg.AutoMsg_toggle = toggle
+    			VALUES.AutoMsg.AutoMsg_cooldown = cooldown
 
 				local chatChannel = TextChatService.TextChannels.RBXGeneral
 				if chatChannel and VALUES.AutoMsg.AutoMsg_toggle then
 					task.spawn(function()
 						while VALUES.AutoMsg.AutoMsg_toggle do
 							chatChannel:SendAsync(VALUES.AutoMsg.AutoMsg_message)
-							wait(VALUES.AutoMsg.AutoMsg_cooldown)
+							task.wait(VALUES.AutoMsg.AutoMsg_cooldown)
 						end
 					end)
 				end
