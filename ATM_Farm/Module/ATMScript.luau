@@ -273,15 +273,13 @@ task.spawn(function()
 		end)
 		
 		task.spawn(function()
-			if VALUES.Farming not VALUES.State.Others then
+			if VALUES.Farming and not VALUES.State.Others then
 				VALUES.State.Others = true
 				AntiStomp()
 				AntiAFK()
 				VALUES.State.Others = false
 			end
 		end)
-		
-		
 		
 	end
 end)
