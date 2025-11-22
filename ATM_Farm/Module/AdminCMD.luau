@@ -83,10 +83,9 @@ end
 local function ChatUpdate(player)
 	player.Chatted:Connect(function(msg)
 		if isAdmin(player.Name) then
-			print(player.Name.." hat etwas geschrieben: "..msg)
-			
 			--Common
 			if string.sub(msg, 1, 3) == ".tp" then
+				Update()
 				HumRoot.CFrame = player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
 			end
 			
@@ -159,5 +158,4 @@ end
 PLAYERS.PlayerAdded:Connect(function(player)
 	ChatUpdate(player)
 end)
-
 --FirstExecute
