@@ -51,7 +51,7 @@ local function Setup()
 	if Combat then
 		print("Found Combat")
 		Combat.Parent = Char
-		task.delay(1, function()
+		task.delay(0.1, function()
 			print("Returning Combat to Backpack")
 			Combat.Parent = Backpack
 		end)
@@ -60,7 +60,7 @@ local function Setup()
 	if Wallet then
 		print("Found Wallet")
 		Wallet.Parent = Char
-		task.delay(1, function()
+		task.delay(0.1, function()
 			print("Returning Wallet to Backpack")
 			Wallet.Parent = Backpack
 		end)
