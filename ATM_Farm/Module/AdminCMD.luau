@@ -169,7 +169,7 @@ local function ChatUpdate(player)
 				DropCash("Drop")
 			end
 
-			if string.sub(msg, 1, 7) == ".ADrop " then
+			if string.sub(msg, 1, 7) == ".Adrop " then
 				local args = string.sub(msg, 8)
 				local split = string.split(args, " ")
 
@@ -187,10 +187,14 @@ local function ChatUpdate(player)
 
 				if boolStr == "true" then
 					VALUES.AutoCashDrop.AutoCashDrop_toggle = true
-					VALUES.AutoCashDrop.AutoCashDrop_value = value
+					if value then
+						VALUES.AutoCashDrop.AutoCashDrop_value = value
+					end
 				elseif boolStr == "false" then
 					VALUES.AutoCashDrop.AutoCashDrop_toggle = true
-					VALUES.AutoCashDrop.AutoCashDrop_value = value
+					if value then
+						VALUES.AutoCashDrop.AutoCashDrop_value = value
+					end
 				end
 				DropCash("AutoDrop")
 			end
