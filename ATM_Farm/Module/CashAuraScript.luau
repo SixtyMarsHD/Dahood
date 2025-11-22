@@ -17,19 +17,19 @@ local State_AntiAFK = false
 local State_AntiStomp = false
 local State_CashAura = false
 local State_Others = false
-local State_AntiSeat false
+local State_AntiSeat = false
+local State_VoidCash = false
 
 local function Update()
 	Char = Player.Character or Player.CharacterAdded:Wait()
-		HumRoot = Char:WaitForChild("HumanoidRootPart")
-		Humanoid = Char:WaitForChild("Humanoid")
-		Backpack = Player.Backpack
-	end
+	HumRoot = Char:WaitForChild("HumanoidRootPart")
+	Humanoid = Char:WaitForChild("Humanoid")
+	Backpack = Player.Backpack
 end
 
 local function AntiStomp()
 	if (Char and Char:FindFirstChild("BodyEffects") and Char:FindFirstChild("BodyEffects"):FindFirstChild("K.O") and Char:FindFirstChild("BodyEffects"):FindFirstChild("Dead")) or (Char and Char:FindFirstChild("GRABBING_CONSTRAINT")) then
-        local KO_Value = Char:FindFirstChild("BodyEffects"):FindFirstChild("K.O")
+		local KO_Value = Char:FindFirstChild("BodyEffects"):FindFirstChild("K.O")
 		local Dead_Value = Char:FindFirstChild("BodyEffects"):FindFirstChild("Dead")
 		local GRABBING = Char:FindFirstChild("GRABBING_CONSTRAINT")
 		if (KO_Value.Value and not State_AntiStomp) or (GRABBING and not State_AntiStomp) or (Dead_Value.Value and not State_AntiStomp) then
@@ -37,14 +37,13 @@ local function AntiStomp()
 			local oldpos = HumRoot.CFrame
 			Humanoid.Health = 0
 			Player.CharacterAdded:Wait():WaitForChild("HumanoidRootPart")
-					task.wait()
-					HumRoot.CFrame = oldpos + Vector3.new(0, 3, 0)
-				end
-				State_AntiStomp = false
-            end)
+			task.wait()
+			HumRoot.CFrame = oldpos + Vector3.new(0, 3, 0)
 		end
-	end	
+		State_AntiStomp = false
+	end
 end
+	
 
 local function AntiAFK()
 	if not State_AntiAFK then
@@ -52,7 +51,7 @@ local function AntiAFK()
 		VirtualUser:CaptureController()
 		VirtualUser:ClickButton2(Vector2.new())
 		task.delay(60, function()
-		    State_AntiAFK = false
+			State_AntiAFK = false
 		end)				
 	end	
 end
@@ -60,14 +59,14 @@ end
 local function AntiSeat(value)
 	for _, obj in ipairs(game.Workspace:GetDescendants()) do
 		if obj:IsA("Seat") or obj:IsA("VehicleSeat") then
-		    task.spawn(function()
-		        if Humanoid and obj.Occupant and obj.Occupant == Humanoid then
-			        Humanoid.Jump = true
-			        repeat
-			        task.wait()
-			        until obj.Occupant ~= Humanoid
-			    end
-			    obj.Disabled = value
+			task.spawn(function()
+				if Humanoid and obj.Occupant and obj.Occupant == Humanoid then
+					Humanoid.Jump = true
+					repeat
+						task.wait()
+					until obj.Occupant ~= Humanoid
+				end
+				obj.Disabled = value
 			end)
 		end
 	end
@@ -99,9 +98,9 @@ end
 local function Void(value)
 	if value == true then
 		if State_Void == true then return end
-		    State_Void = true
-			task.spawn(function()
-				while State_Void == true do
+		State_Void = true
+		task.spawn(function()
+			while State_Void == true do
 				task.wait()
 				HumRoot.CFrame = CFrame.new(500000, 25000, 0)
 				task.wait()
@@ -127,7 +126,7 @@ end
 local function CashAura()
 	MoneyPriority()
 	if MoneyPriority_TargetMoneyDrop and MoneyPriority_TargetMoneyDrop:FindFirstChildOfClass("ClickDetector") then
-	    Void(false)
+		Void(false)
 		wait(0.1)
 		if not State_TpBack then
 			HumRoot.CFrame = MoneyPriority_TargetMoneyDrop.CFrame + Vector3.new(0, 3, 0)
@@ -137,9 +136,9 @@ local function CashAura()
 				LastMoneyPart = MoneyPriority_TargetMoneyDrop
 				fireclickdetector(ClickDetector)
 			end
-            if Settings_CashAura then
-                Void(true)
-            end
+			if Settings_CashAura then
+				Void(true)
+			end
 		end
 		wait(2.15)
 	end
@@ -164,35 +163,37 @@ Player.CharacterAdded:Connect(function()
 end)
 
 task.spawn(function()
-    while wait() do
-        Settings_CashAura = getgenv().SharedData.CashAura.Farming
+	while wait() do
+		Settings_CashAura = getgenv().SharedData.CashAura.Farming
 
-        task.spawn(function()
-            if Settings_CashAura and not State_CashAura then
-                State_CashAura = true
-                CashAura()
-                State_CashAura = false
-            end
-        end)
+		task.spawn(function()
+			if Settings_CashAura and not State_CashAura then
+				State_CashAura = true
+				State_VoidCash = false
+				CashAura()
+				State_CashAura = false
+			end
+		end)
 
-        task.spawn(function()
-            if Settings_CashAura and not State_Others then
-                State_Others = true
-                AntiStomp()
-                AntiAFK()
-                if not State_AntiSeat then
-                    State_AntiSeat = true
-                    AntiSeat(true)
-                end
-                State_Others = false
-            elseif not Settings_CashAura and State_AntiSeat then
-                State_AntiSeat = false
-                AntiSeat(false)
-            elseif not Settings_CashAura then
-                Void(false)
-            end
-        end)
-    end
+		task.spawn(function()
+			if Settings_CashAura and not State_Others then
+				State_Others = true
+				AntiStomp()
+				AntiAFK()
+				if not State_AntiSeat then
+					State_AntiSeat = true
+					AntiSeat(true)
+				end
+				State_Others = false
+			elseif not Settings_CashAura and State_AntiSeat then
+				State_AntiSeat = false
+				AntiSeat(false)
+			elseif not Settings_CashAura and not State_VoidCash then
+				State_VoidCash = true
+				Void(false)
+			end
+		end)
+	end
 end)
 
 --FirstExecute
