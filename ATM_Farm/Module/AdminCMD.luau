@@ -38,17 +38,17 @@ local function isAdmin(name)
 end
 
 local function Setup()
-	local Combat = Char:WaitForChild("Combat")
-	local Wallet = Char:WaitForChild("[Wallet]")
+	local Combat = Backpack:WaitForChild("Combat")
+	local Wallet = Backpack:WaitForChild("[Wallet]")
 	if Combat then
 		Combat.Parent = Char
-		task.delay(1, function()
+		task.delay(0.1, function()
 			Combat.Parent = Backpack
 		end)
 	end
 	if Wallet then
 		Wallet.Parent = Char
-		task.delay(1, function()
+		task.delay(0.1, function()
 			Wallet.Parent = Backpack
 		end)
 	end
