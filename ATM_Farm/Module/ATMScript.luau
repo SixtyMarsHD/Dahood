@@ -277,12 +277,14 @@ task.spawn(function()
 				state_fastcollect = true
 				for _, part in pairs(workspace:GetDescendants()) do
 					if part:IsA("BasePart") then
-						if (part.Position - Head.Position).Magnitude <= 10 then
-							local ClickDetector = part:FindFirstChild("ClickDetector")
-							if ClickDetector then
-								fireclickdetector(ClickDetector)
+						if part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") then
+							if (part.Position - Head.Position).Magnitude <= 10 then
+								local ClickDetector = part:FindFirstChild("ClickDetector")
+								if ClickDetector then
+									fireclickdetector(ClickDetector)
+								end
+								task.wait(0.1)
 							end
-							task.wait(0.1)
 						end
 					end
 				end
