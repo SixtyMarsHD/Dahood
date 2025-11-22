@@ -270,7 +270,7 @@ task.spawn(function()
 				for _, part in pairs(workspace:WaitForChild("Ignored"):WaitForChild("Drop"):GetChildren()) do
 					if part:IsA("BasePart") then
 						if part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") and HumRoot then
-							if (part.Position - HumRoot.Position).Magnitude <= 12 then
+							if (part.Position - HumRoot.Position).Magnitude <= 10 then
 								local ClickDetector = part:FindFirstChild("ClickDetector")
 								if ClickDetector then
 									fireclickdetector(ClickDetector)
