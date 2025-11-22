@@ -2,11 +2,13 @@ getgenv().SharedData = {
     ATM = {
        Farming = false,
     }
+
+    CashAura = {
+       Farming = false,
+    }
 }
 
-local ATMScript   = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/ATM_Farm/Module/ATMScript.luau"))()
 local AdminScript = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/ATM_Farm/Module/AdminCMD.luau"))()
+local ATMScript = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/ATM_Farm/Module/ATMScript.luau"))()
+local CashAuraScript = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/ATM_Farm/Module/CashAuraScript.luau"))()
 
-while wait(5) do
-    print(getgenv().SharedData.ATM.Farming)
-end

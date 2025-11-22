@@ -27,7 +27,6 @@ local VALUES = {
 	}
 }
 
-
 local function isAdmin(name)
 	for _, adminName in ipairs(Admins) do
 		if name == adminName then
@@ -94,16 +93,17 @@ local function ChatUpdate(player)
 			--ScriptControl
 			if string.sub(msg, 1, 6) == ".stop " then
 				print("stop")
-				if string.sub(msg, 7, 14) == "ATM_Farm" then
+				if string.sub(msg, 7, 9) == "ATM" then
 					getgenv().SharedData.ATM.Farming = false
-					print("autofarm stop")
+				elseif string.sub(msg, 7, 14) == "CashAura" then
+					getgenv().SharedData.CashAura.Farming = false
 				end
 			elseif string.sub(msg, 1, 7) == ".start " then
 				print("start")
-				if string.sub(msg, 8, 15) == "ATM_Farm" then
+				if string.sub(msg, 8, 10) == "ATM" then
 					getgenv().SharedData.ATM.Farming = true
-					print("autofarm start")
-					print(getgenv().SharedData.ATM.Farming)
+				elseif string.sub(msg, 8, 15) == "CashAura" then
+					getgenv().SharedData.CashAura.Farming = true
 				end
 			end
 
@@ -126,7 +126,16 @@ local function ChatUpdate(player)
 				local split = string.split(args, " ")
 
 				local boolStr = (split[1] or ""):lower()
-				local value   = split[2]                  
+				local value
+				if split[2] == "15k" then
+					value = 15000
+				elseif split[2] == "10k" then
+					value = 10000
+				elseif split[2] == "5k" then
+					value = 5000
+				else 
+					value = split[2]
+				end                 
 
 				if boolStr == "true" then
 					VALUES.AutoCashDrop.AutoCashDrop_toggle = true
