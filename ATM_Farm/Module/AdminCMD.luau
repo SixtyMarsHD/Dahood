@@ -176,4 +176,3 @@ PLAYERS.PlayerAdded:Connect(function(player)
 	ChatUpdate(player)
 end)
 --FirstExecute
-Update()
