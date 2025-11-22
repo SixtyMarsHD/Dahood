@@ -91,18 +91,10 @@ local function AntiStomp()
 		local GRABBING = Char:FindFirstChild("GRABBING_CONSTRAINT")
 		if (KO_Value.Value and not VALUES.State.AntiStomp) or (GRABBING and not VALUES.State.AntiStomp) or (Dead_Value.Value and not VALUES.State.AntiStomp) then
 			VALUES.State.AntiStomp = true
-			local oldpos = nil
-			if VALUES.FlyStud ~= nil then
-				local oldpos = VALUES.FlyStud.Position
-			end
 			Humanoid.Health = 0
 			repeat
 				task.wait()
 			until VALUES.FlyStud ~= nil
-			task.wait()
-			if oldpos ~= nil then
-				VALUES.FlyStud.Position = oldpos
-			end
 			VALUES.State.AntiStomp = false
 		end
 	end
@@ -252,7 +244,7 @@ Player.CharacterAdded:Connect(function()
 		VALUES.Value.Respawn = false
 	end)
 end)
-
+local state_fastcollect = false
 task.spawn(function()
 	while wait() do
 		
@@ -284,18 +276,20 @@ task.spawn(function()
 						if part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") then
 							
 							if (part.Position - HumRoot.Position).Magnitude <= 10 then
-								print("fastcollecting - 5")
+								
 								local ClickDetector = part:FindFirstChild("ClickDetector")
 								if ClickDetector then
-									print("fastcollecting - 6")
+									
 									fireclickdetector(ClickDetector)
 								end
-								task.wait(0.1)
+								return
 							end
 						end
 					end
 				end
-				state_fastcollect = false
+				task.delay(0.1, function()
+					state_fastcollect = false
+				end)
 			end
 		end)
 
@@ -317,4 +311,29 @@ AntiSeat()
 Setup()
 FlyStud("spawn")
 
---[[]]
+--[[task.spawn(function()
+			
+			if VALUES.Farming and not state_fastcollect then
+				
+				state_fastcollect = true
+				for _, part in pairs(workspace:GetDescendants()) do
+					
+					if part:IsA("BasePart") then
+						
+						if part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") then
+							
+							if (part.Position - HumRoot.Position).Magnitude <= 10 then
+								print("fastcollecting - 5")
+								local ClickDetector = part:FindFirstChild("ClickDetector")
+								if ClickDetector then
+									print("fastcollecting - 6")
+									fireclickdetector(ClickDetector)
+								end
+								task.wait(0.1)
+							end
+						end
+					end
+				end
+				state_fastcollect = false
+			end
+		end)]]
