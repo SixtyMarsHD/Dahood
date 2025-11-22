@@ -274,8 +274,8 @@ task.spawn(function()
 								local ClickDetector = part:FindFirstChild("ClickDetector")
 								if ClickDetector then
 									fireclickdetector(ClickDetector)
+									break
 								end
-								return
 							end
 						end
 					end
