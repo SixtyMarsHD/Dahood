@@ -252,7 +252,7 @@ Player.CharacterAdded:Connect(function()
 		VALUES.Value.Respawn = false
 	end)
 end)
-local state_fastcollect = false
+
 task.spawn(function()
 	while wait() do
 		
@@ -273,6 +273,26 @@ task.spawn(function()
 		end)
 		
 		task.spawn(function()
+			if VALUES.Farming not VALUES.State.Others then
+				VALUES.State.Others = true
+				AntiStomp()
+				AntiAFK()
+				VALUES.State.Others = false
+			end
+		end)
+		
+		
+		
+	end
+end)
+
+--FirstExecute
+HumanoidDied()
+AntiSeat()
+Setup()
+FlyStud("spawn")
+
+--[[task.spawn(function()
 			print("fastcollect")
 			if VALUES.Farming and not state_fastcollect then
 				print("fastcollecting - 1")
@@ -297,24 +317,4 @@ task.spawn(function()
 				end
 				state_fastcollect = false
 			end
-		end)
-
-		task.spawn(function()
-			if VALUES.Farming not VALUES.State.Others then
-				VALUES.State.Others = true
-				AntiStomp()
-				AntiAFK()
-				VALUES.State.Others = false
-			end
-		end)
-		
-		
-		
-	end
-end)
-
---FirstExecute
-HumanoidDied()
-AntiSeat()
-Setup()
-FlyStud("spawn")
+		end)]]
