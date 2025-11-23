@@ -16,15 +16,15 @@ local VALUES = {
 	
 	Value = {
 		Respawn = false,
-		noclip = true,
+		noclip = true
 	},
 	
 	State = {
 		ATM = false,
 		Others = false,
 		AntiStomp = false,
-		AntiAFK = false
-		CanFastCollect = true,
+		AntiAFK = false,
+		CanFastCollect = true
 	}
 }
 print(VALUES.Farming)
