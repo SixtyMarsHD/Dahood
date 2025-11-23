@@ -47,15 +47,6 @@ local function isAdmin(name)
 end
 
 local function Setup()
-	local Combat = Backpack:WaitForChild("Combat")
-	if Combat then
-		print("Found Combat")
-		Combat.Parent = Char
-		task.delay(0.1, function()
-			print("Returning Combat to Backpack")
-			Combat.Parent = Backpack
-		end)
-	end
 	local Wallet = Backpack:WaitForChild("[Wallet]")
 	if Wallet then
 		print("Found Wallet")

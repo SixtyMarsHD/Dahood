@@ -24,6 +24,7 @@ local VALUES = {
 		Others = false,
 		AntiStomp = false,
 		AntiAFK = false
+		CanFastCollect = true,
 	}
 }
 print(VALUES.Farming)
@@ -172,9 +173,13 @@ local function ATM()
 							Head.Position + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector
 						)
 						
+						task.delay(0.25 function()
+							VALUES.State.CanFastCollect = true
+						end)
+
 						if v.Health >= 0 then
 							Punch()
-							task.wait(3)
+							task.wait(2.8)
 						end
 						if v.Health >= 0 then
 						Punch()
@@ -207,6 +212,7 @@ local function ATM()
 								end
 							end
 						end
+						VALUES.State.CanFastCollect = false
 						return
 					end
 				end
@@ -265,7 +271,7 @@ task.spawn(function()
 		end)
 		
 		task.spawn(function()
-			if VALUES.Farming and not state_fastcollect and not VALUES.State.AntiStomp then
+			if VALUES.Farming and not state_fastcollect and not VALUES.State.AntiStomp and VALUES.State.CanFastCollect then
 				state_fastcollect = true
 				for _, part in pairs(workspace:WaitForChild("Ignored"):WaitForChild("Drop"):GetChildren()) do
 					if part:IsA("BasePart") then
