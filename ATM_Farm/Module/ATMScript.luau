@@ -179,7 +179,7 @@ local function ATM()
 
 						if v.Health >= 0 then
 							Punch()
-							task.wait(2.8)
+							task.wait(3)
 						end
 						if v.Health >= 0 then
 						Punch()
