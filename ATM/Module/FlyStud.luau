@@ -76,7 +76,7 @@ task.spawn(function()
         Toggle = getgenv().SharedData.ATM.Farming
         if Toggle and not Respawn then
             FlyStud("spawn")
-        else
+        elseif not Respawn then
             FlyStud("remove")
         end
     end
