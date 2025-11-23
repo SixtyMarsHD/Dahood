@@ -16,7 +16,7 @@ local Admins = {
 
 local VALUES = {
 	ScriptControl = {
-		ATM_AutoFarm = nil,
+		ATM_AutoFarm = nil
 	},
 	
 	CashDrop = {
@@ -25,7 +25,8 @@ local VALUES = {
 	
 	AutoCashDrop = {
 		AutoCashDrop_toggle = false,
-		AutoCashDrop_value = 100
+		AutoCashDrop_value = 100,
+		State = "Idle"
 	},
 
 	AutoMsg = {
@@ -33,7 +34,6 @@ local VALUES = {
 		AutoMsg_message = "Hello World",
 		AutoMsg_cooldown = 5
 	}
-
 
 }
 
@@ -79,7 +79,6 @@ local function ButtonClick(Button)
 	local connections = getconnections(Button.MouseButton1Click)
 	for i, connection in pairs(connections) do
 		if connection.Function then
-			print("button cliked")
 			connection.Function()
 		end
 	end
@@ -92,15 +91,18 @@ local function DropCash(Mode)
 	
 	local function Drop(Drop_Value)
 		TextBox.Text = VALUES.CashDrop.CashDrop_value
-		print("button fired")
 		ButtonClick(Button)
 	end
 	
 	local function AutoDrop()
-		while VALUES.AutoCashDrop.AutoCashDrop_toggle == true do
-			TextBox.Text = VALUES.AutoCashDrop.AutoCashDrop_value
-			ButtonClick(Button)
-			wait(0.5)
+		if VALUES.AutoCashDrop.State == "Idle" then
+			VALUES.AutoCashDrop.State = "Running"
+			while VALUES.AutoCashDrop.AutoCashDrop_toggle == true do
+				TextBox.Text = VALUES.AutoCashDrop.AutoCashDrop_value
+				ButtonClick(Button)
+				wait(0.5)
+			end
+			VALUES.AutoCashDrop.State = "Idle"
 		end
 	end
 	
@@ -130,43 +132,7 @@ local function ChatUpdate(player)
 					chatChannel:SendAsync(msg)
 				end
 			elseif string.sub(msg, 1, 6) == ".Amsg" then
-    			local args = string.sub(msg, 7)
-   				local split = string.split(args, " ")
-
-   				local toggle = true       -- Standard: AutoMsg aktiv
-    			local cooldown = 5        -- Standard: 5 Sekunden
-    			local message = "ERROR"   -- Standardnachricht
-
-    			if #split >= 2 then
-        			-- Prüfen, ob letzter Wert eine Zahl ist
-        		local last = tonumber(split[#split])
-        		if last then
-        		    cooldown = last
-            		toggle = (split[#split - 1]:lower() == "true")
-            		message = table.concat(split, " ", 1, #split - 2)
-        		else
-            		toggle = (split[#split]:lower() == "true")
-            		message = table.concat(split, " ", 1, #split - 1)
-        		end
-    				elseif #split == 1 then
-        				message = split[1]
-        				toggle = true
-					end
-        		end
-
-   				VALUES.AutoMsg.AutoMsg_message = message
-    			VALUES.AutoMsg.AutoMsg_toggle = toggle
-    			VALUES.AutoMsg.AutoMsg_cooldown = cooldown
-
- 				local chatChannel = TextChatService.TextChannels.RBXGeneral
-    			if chatChannel and toggle then
-        			task.spawn(function()
-            			while VALUES.AutoMsg.AutoMsg_toggle do
-                			chatChannel:SendAsync(message)
-                			task.wait(cooldown)
-            			end
-        			end)
-    			end
+				print("AutoMsg Command")
 			elseif string.sub(msg, 1, 5) == ".mask" then
 				if Char and not Char:FindFirstChild("In-gameMask") then
 					if Char:FindFirstChild("[Mask]") then
@@ -201,14 +167,12 @@ local function ChatUpdate(player)
 
 			--ScriptControl
 			if string.sub(msg, 1, 6) == ".stop " then
-				print("stop")
 				if string.sub(msg, 7, 9) == "ATM" then
 					getgenv().SharedData.ATM.Farming = false
 				elseif string.sub(msg, 7, 14) == "CashAura" then
 					getgenv().SharedData.CashAura.Farming = false
 				end
 			elseif string.sub(msg, 1, 7) == ".start " then
-				print("start")
 				if string.sub(msg, 8, 10) == "ATM" then
 					getgenv().SharedData.ATM.Farming = true
 				elseif string.sub(msg, 8, 15) == "CashAura" then
@@ -287,5 +251,6 @@ end
 PLAYERS.PlayerAdded:Connect(function(player)
 	ChatUpdate(player)
 end)
+
 --FirstExecute
 Setup()
