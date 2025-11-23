@@ -141,6 +141,7 @@ local function ATM()
 						local function Punch()
 							if Backpack:FindFirstChild("Combat") then
 								Backpack:FindFirstChild("Combat").Parent = Char
+								task.wait()
 							end
 							
 							local ChargeButton = MainScreenGui:WaitForChild("ChargeButton")
@@ -182,7 +183,7 @@ local function ATM()
 
 						if v.Health >= 0 then
 							Punch()
-							task.wait(3)
+							task.wait(2.9)
 						end
 						if v.Health >= 0 then
 						Punch()
