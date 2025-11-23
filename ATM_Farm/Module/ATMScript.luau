@@ -93,6 +93,9 @@ local function AntiStomp()
 		if (KO_Value.Value and not VALUES.State.AntiStomp) or (GRABBING and not VALUES.State.AntiStomp) or (Dead_Value.Value and not VALUES.State.AntiStomp) then
 			VALUES.State.AntiStomp = true
 			Humanoid.Health = 0
+			task.delay(1, function()
+				VALUES.State.CanFastCollect = false
+			end)
 			repeat
 				task.wait()
 			until VALUES.FlyStud ~= nil
