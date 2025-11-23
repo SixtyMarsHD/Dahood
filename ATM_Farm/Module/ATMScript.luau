@@ -24,7 +24,7 @@ local VALUES = {
 		Others = false,
 		AntiStomp = false,
 		AntiAFK = false,
-		CanFastCollect = true
+		CanFastCollect = false
 	}
 }
 print(VALUES.Farming)
@@ -173,7 +173,7 @@ local function ATM()
 							Head.Position + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector
 						)
 						
-						task.delay(0.25 function()
+						task.delay(0.25, function()
 							VALUES.State.CanFastCollect = true
 						end)
 
