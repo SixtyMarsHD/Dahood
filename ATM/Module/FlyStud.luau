@@ -3,6 +3,7 @@ local Char = Player.Character or Player.CharacterAdded:Wait()
 local HumRoot = Char:WaitForChild("HumanoidRootPart")
 
 local Toggle = getgenv().SharedData.ATM.Farming
+local Respawn = false
 
 local function Update()
 	Char = Player.Character or Player.CharacterAdded:Wait()
@@ -56,6 +57,7 @@ local function HumanoidDied()
 		local Dead_Value = Char:WaitForChild("BodyEffects"):WaitForChild("Dead")
 		Dead_Value:GetPropertyChangedSignal("Value"):Connect(function()
 			if Dead_Value.Value == true then
+                Respawn = true
 				FlyStud("remove")
 			end
 		end)
@@ -65,19 +67,19 @@ end
 Player.CharacterAdded:Connect(function()
 	Update()
 	HumanoidDied()
-    if Toggle then
-        FlyStud("spawn")
-    end
+    task.delay(1, function()
+       Respawn = true
+    end)
 end)
 
-getgenv().SharedData.ATM.Farming:GetPropertyChangedSignal("Value"):Connect(function()
-    print("SharedData.ATM.Farming: changed flystud")
-    Toggle = getgenv().SharedData.ATM.Farming
-
-    if Toggle then
-        FlyStud("spawn")
-    else
-        FlyStud("remove")
+task.spawn(function()
+    while wait(0.1) do
+        Toggle = getgenv().SharedData.ATM.Farming
+        if Toggle and not Respawn then
+            FlyStud("spawn")
+        else
+            FlyStud("remove")
+        end
     end
 end)
 

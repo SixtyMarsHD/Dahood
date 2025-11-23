@@ -110,6 +110,7 @@ task.spawn(function()
     while wait() do
 
         task.spawn(function()
+            Toggle = getgenv().SharedData.ATM.Farming
             if not State.ATM and game.workspace:FindFirstChild("FlyPart") and Toggle then
                 State.ATM = true
                 FlyStud = workspace:FindFirstChild("FlyPart")
@@ -119,16 +120,5 @@ task.spawn(function()
             end
         end
 
-    end
-end)
-
-getgenv().SharedData.ATM.Farming:GetPropertyChangedSignal("Value"):Connect(function()
-    print("SharedData.ATM.Farming: changed atm")
-    Toggle = getgenv().SharedData.ATM.Farming
-
-    if Toggle then
-        FlyStud("spawn")
-    else
-        FlyStud("remove")
     end
 end)
