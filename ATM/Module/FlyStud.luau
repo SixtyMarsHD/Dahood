@@ -21,7 +21,6 @@ local function FlyStud(Mode)
 			Part.CanCollide = false
 			Part.Transparency = 0
 			Part.Position = HumRoot.Position
-			VALUES.FlyStud = Part
 
 			if not Part:FindFirstChild("Weld") then
 				local Weld = Instance.new("Weld", Part)
