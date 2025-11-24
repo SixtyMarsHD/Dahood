@@ -30,12 +30,14 @@ local VALUES = {
 		Others = false,
 		AntiStomp = false,
 		AntiAFK = false,
-		CanFastCollect = false
-	}
+		CanFastCollect = false,
+	},
 }
 
+print("VALUES TRUE")
+
 local function Setup()
-	game:GetService("RunService").Stepped:Connect(function()
+	RunService.Stepped:Connect(function()
 		if VALUES.Value.noclip and Farming then
 			for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 				if v:IsA("BasePart") and v.CanCollide then
@@ -51,6 +53,8 @@ local function Setup()
 		end
 	end)
 end
+
+print("Setup TRUE")
 
 local function FlyStud(Mode)
 	
@@ -94,6 +98,8 @@ local function FlyStud(Mode)
 	
 end
 
+print("FlyStud TRUE")
+
 local function AntiStomp()
 	if (Char and Char:FindFirstChild("BodyEffects") and Char:FindFirstChild("BodyEffects"):FindFirstChild("K.O") and Char:FindFirstChild("BodyEffects"):FindFirstChild("Dead")) or (Char and Char:FindFirstChild("GRABBING_CONSTRAINT")) then
 		local KO_Value = Char:FindFirstChild("BodyEffects"):FindFirstChild("K.O")
@@ -113,6 +119,8 @@ local function AntiStomp()
 	end
 end
 
+print("AntiStomp TRUE")
+
 local function AntiAFK()
 	if not VALUES.State.AntiAFK then
 		VALUES.State.AntiAFK = true
@@ -123,6 +131,8 @@ local function AntiAFK()
 		end)
 	end
 end
+
+print("AntiAFK TRUE")
 
 local function AntiSeat()
 	for _, obj in ipairs(game.Workspace:GetDescendants()) do
@@ -139,6 +149,8 @@ local function AntiSeat()
 		end
 	end
 end
+
+print("AntiSeat TRUE")
 
 local function FastCollect()
 	if VALUES.Settings.Farming and not VALUES.State.AntiStomp and not VALUES.State.CanFastCollect and VALUES.Value.CanFastCollect and VALUES.Settings.FastCollect then
