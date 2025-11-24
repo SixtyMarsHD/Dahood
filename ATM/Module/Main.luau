@@ -8,4 +8,4 @@ getgenv().SharedData = {
     },
 }
 
-local ATM_Script = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/ATM/Module/ATMScript.luau"))()
+local ATM_Script = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/ATM/Module/ATM.luau"))()

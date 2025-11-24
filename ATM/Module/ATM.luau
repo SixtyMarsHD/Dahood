@@ -167,6 +167,8 @@ local function FastCollect()
 	end
 end
 
+print("FastCollect TRUE")
+
 local function Punch()
 	if Backpack:FindFirstChild("Combat") then
 		Backpack:FindFirstChild("Combat").Parent = Char
@@ -183,6 +185,8 @@ local function Punch()
 	end
 end
 
+print("Punch TRUE")
+
 local function AntiStuck(Model)
 	if Model:FindFirstChild("Head") then
 		local Head = Model:FindFirstChild("Head")
@@ -195,6 +199,8 @@ local function AntiStuck(Model)
 		return 0
 	end					
 end
+
+print("AntiStuck TRUE")
 
 local function ATM()
 	for _, Model in pairs(CashierFolder:GetChildren()) do
