@@ -65,22 +65,9 @@ local function Setup()
 			game.Lighting.FogEnd = 500
 		end
 
-		if VALUES.Settings.Farming and Humanoid then
-			Humanoid.AutoRotate = false
-			Humanoid.PlatformStand = true
-		elseif Humanoid then
-			Humanoid.AutoRotate = true
-			Humanoid.PlatformStand = false
-		end
 	end)
 
-	task.spawn(function()
-		if Backpack:WaitForChild("Combat") or Char:WaitForChild("Combat") then
-			Combat = Backpack:FindFirstChild("Combat") or Char:FindFirstChild("Combat")
-		else
-			Combat = nil
-		end
-	end)
+	
 
 end
 
@@ -156,126 +143,6 @@ local function AntiAFK()
 	end
 end
 
-local function AntiSeat()
-	for _, obj in ipairs(game.Workspace:GetDescendants()) do
-		if obj:IsA("Seat") or obj:IsA("VehicleSeat") then
-			task.spawn(function()
-				if Humanoid and obj.Occupant and obj.Occupant == Humanoid then
-					Humanoid.Jump = true
-					repeat
-						task.wait()
-					until obj.Occupant ~= Humanoid
-				end
-				obj.Disabled = true
-			end)
-		end
-	end
-end
-
-local function FastCollect()
-	if VALUES.Settings.Farming and not VALUES.State.CanFastCollect and VALUES.Value.CanFastCollect and VALUES.Settings.FastCollect then
-		VALUES.State.CanFastCollect = true
-		for _, part in pairs(workspace:FindFirstChild("Ignored"):FindFirstChild("Drop"):GetChildren()) do
-			if part:IsA("BasePart") and part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") and HumRoot then
-				if (part.Position - HumRoot.Position).Magnitude <= 10 then
-					fireclickdetector(part:FindFirstChild("ClickDetector"))
-					break
-				end
-			end
-		end		
-		VALUES.State.CanFastCollect = false
-	end
-end
-
-local function AntiStuck(Model)
-	if Model:FindFirstChild("Head") then
-		local Head = Model:FindFirstChild("Head")
-		local headpos = Vector3.new(math.round(Head.Position.X), math.round(Head.Position.Y), math.round(Head.Position.Z))
-		if headpos == Vector3.new(-624, 25, -285) then
-			return -1.5
-		elseif headpos == Vector3.new(-627, 25, -285) then
-			return 1.5
-		end
-		return 0
-	end					
-end
-
-local function ATM()
-	for _, Model in pairs(CashierFolder:GetChildren()) do
-		if Model.Name == "CA$HIER" then
-			for _, v in pairs(Model:GetChildren()) do
-				if v:IsA("Humanoid") then
-					if v.Health >= 0 and VALUES.FlyStud ~= nil and not VALUES.Value.Respawn then
-						
-						if Backpack:FindFirstChild("Combat") then
-							Backpack:FindFirstChild("Combat").Parent = Char
-						end
-
-						local Head = Model:FindFirstChild("Open")
-						VALUES.FlyStud.CFrame = CFrame.new(
-							Head.Position + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck(Model),
-							Head.Position + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck(Model) + Head.CFrame.LookVector
-						)
-						
-						if VALUES.Value.Respawn then return end
-						task.delay(0.25, function()
-							if not VALUES.Value.Respawn then
-								VALUES.Value.CanFastCollect = true
-							end
-						end)
-						
-						if v.Health >= 0 and Combat and not VALUES.Value.Respawn then
-							Combat:Activate()
-							task.wait(3)
-							if not VALUES.Value.Respawn then
-								Combat:Deactivate()
-							end
-						end
-
-						task.wait(0.2)
-						
-						if v.Health >= 0 and Combat and not VALUES.Value.Respawn then
-							Combat:Activate()
-							task.wait(2.5)
-							if not VALUES.Value.Respawn then
-								Combat:Deactivate()
-							end
-						end
-						
-						if Char:FindFirstChild("Combat") then
-							Char:FindFirstChild("Combat").Parent = Backpack
-						end
-						
-						for _, part in pairs(workspace:FindFirstChild("Ignored"):FindFirstChild("Drop"):GetChildren()) do
-							
-							if VALUES.State.AntiStomp then
-								repeat 
-									task.wait()
-								until not VALUES.State.AntiStomp and not VALUES.Value.Respawn and VALUES.FlyStud ~= nil
-							end
-
-							if part:IsA("BasePart") and not VALUES.Value.Respawn then
-								if part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") and VALUES.FlyStud ~= nil then
-									if (part.Position - Head.Position).Magnitude <= 20 then
-										VALUES.FlyStud.CFrame = CFrame.new(part.Position - Vector3.new(0, 5, 0))
-										task.wait(0.2)
-										if part:FindFirstChild("ClickDetector") and not VALUES.Value.Respawn then
-											fireclickdetector(part:FindFirstChild("ClickDetector"))
-										end
-										task.wait(0.4)
-									end
-								end
-							end
-						end
-						VALUES.Value.CanFastCollect = false
-						return
-					end
-				end
-			end
-		end
-	end
-end
-
 local function Update()
 	Char = Player.Character or Player.CharacterAdded:Wait()
 	HumRoot = Char:WaitForChild("HumanoidRootPart")
@@ -314,23 +181,6 @@ end)
 
 task.spawn(function()
 	while wait(0.05) do
-		
-		task.spawn(function()
-			VALUES.Settings.Farming = true --getgenv().SharedData.ATM.Farming
-		end)
-
-		task.spawn(function()
-			if not VALUES.Value.Respawn and not VALUES.State.ATM and VALUES.Settings.Farming then
-				VALUES.State.ATM = true
-				FlyStud("spawn")
-				ATM()
-				VALUES.State.ATM = false
-			elseif not VALUES.Settings.Farming then
-				FlyStud("remove")
-				task.wait(1)
-			end
-		end)
-		
 		task.spawn(function()
 			if VALUES.Settings.Farming and not VALUES.State.Others then
 				VALUES.State.Others = true
@@ -344,6 +194,4 @@ end)
 
 --FirstExecute
 HumanoidDied()
-AntiSeat()
-Setup()
 FlyStud("spawn")
