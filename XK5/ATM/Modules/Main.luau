@@ -8,7 +8,7 @@ getgenv().SharedData = {
         ["FpsCap"] = getgenv().Settings.FpsCap,
         ["FpsBoost"] = getgenv().Settings.FpsBoost,
         ["Disable3DRendering"] = getgenv().Settings.Disable3DRendering,
-    }
+    },
 
     ATM = {
         ["Farming"] = true,
