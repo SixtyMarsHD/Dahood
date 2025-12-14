@@ -8,6 +8,7 @@ getgenv().SharedData = {
         ["FpsCap"] = getgenv().Settings.FpsCap,
         ["FpsBoost"] = getgenv().Settings.FpsBoost,
         ["Disable3DRendering"] = getgenv().Settings.Disable3DRendering,
+        ["AutoRedeemCodes"] = getgenv().Settings.AutoRedeemCodes,
     },
 
     ATM = {
@@ -16,3 +17,4 @@ getgenv().SharedData = {
 }
 
 local ATM_Script = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/ATM.luau"))()
+local Codes_Script = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/Codes.luau"))()
