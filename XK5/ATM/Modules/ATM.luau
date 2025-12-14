@@ -23,21 +23,21 @@ local VALUES = {
 	FlyStud = nil,
 
 	Settings = {
-		ATM = true, --getgenv().SharedData.ATM.Farming,
-		FastCollect = true, --getgenv().SharedData.FastCollect.Enabled,
-		AutoMask = true, --getgenv().SharedData.AutoMask.Enabled,
-		AntiMod = true,
-		FpsBoost = false,
-		Disable3DRendering = false,
-		FpsCap = 60,
-		DiscordWebHook = true,
-		DiscordWebHook_URL = "https://discord.com/api/webhooks/1449336974283640925/dt9Mwv6m5AwlamzFEuhQypUfbcCEzRybc0gnMd-yNM4SIlUhBmxT-gXJJfAvW2uNiXl8",
+		ATM = getgenv().SharedData.ATM.Farming,
+		CollectOnDeath = getgenv().SharedData.Settings.CollectOnDeath,
+		AutoMask = getgenv().SharedData.Settings.AutoMask,
+		AntiMod = getgenv().SharedData.Settings.AntiMod,
+		FpsBoost = getgenv().SharedData.Settings.FpsBoost,
+		Disable3DRendering = getgenv().SharedData.Settings.Disable3DRendering,
+		FpsCap = getgenv().SharedData.Settings.FpsCap,
+		DiscordWebHook = getgenv().SharedData.Settings.DiscordWebHook,
+		DiscordWebHook_URL = getgenv().SharedData.Settings.DiscordWebHook_URL,
 	},
 	
 	Value = {
 		Respawn = false,
 		noclip = true,
-		FastCollect = false,
+		CollectOnDeath = false,
 		HasMask = false,
 		Jailed = false,
 		SetUpFinished = false,
@@ -49,10 +49,11 @@ local VALUES = {
 		Others = false,
 		AntiStomp = false,
 		AntiAFK = false,
-		FastCollect = true,
+		CollectOnDeath = true,
         BuyMask = false,
 		Void = false,
 		UnJail = false,
+		OnKick = false,
 	},
 }
 
@@ -183,7 +184,7 @@ end
 
 --//Modules
 function Setup()
-	setfpscap(VALUES.Settings.FpsCap)
+	setfpscap(tonumber(VALUES.Settings.FpsCap))
 
 
 	if VALUES.Settings.FpsBoost then
@@ -322,7 +323,7 @@ function AntiStomp()
 			VALUES.State.AntiStomp = true
 			Humanoid.Health = 0
 			task.delay(2.5, function()
-				VALUES.Value.FastCollect = false
+				VALUES.Value.CollectOnDeathath = false
 			end)
 			repeat
 				task.wait()
@@ -462,8 +463,8 @@ function Void(value)
 end
 
 function FastCollect()
-	if VALUES.Settings.ATM and VALUES.Settings.FastCollect and VALUES.Value.CanFastCollect and VALUES.State.FastCollect then
-		VALUES.State.FastCollect = false
+	if VALUES.Settings.ATM and VALUES.Settings.CollectOnDeath and VALUES.Value.CanCollectOnDeath and VALUES.State.CollectOnDeath then
+		VALUES.State.CollectOnDeath = false
 		for _, part in pairs(workspace:FindFirstChild("Ignored"):FindFirstChild("Drop"):GetChildren()) do
 			if part:IsA("BasePart") and part.Name == "MoneyDrop" and HumRoot then
 				if (part.Position - HumRoot.Position).Magnitude <= 10 then
@@ -475,7 +476,7 @@ function FastCollect()
 				end
 			end
 		end		
-		VALUES.State.FastCollect = true
+		VALUES.State.CollectOnDeathath = true
 	end
 end
 
@@ -599,9 +600,9 @@ function HumanoidDied()
 				VALUES.Value.Respawn = true
 				FlyStud("remove")
 				VALUES.Value.HasMask = false
-				VALUES.Value.CanFastCollect = true
+				VALUES.Value.CanCollectOnDeathath = true
 				task.delay(2.5, function()
-					VALUES.Value.CanFastCollect = false
+					VALUES.Value.CanCollectOnDeath = false
 				end)
 			end
 		end)
@@ -633,7 +634,8 @@ task.spawn(function()
 			local overlay = promptGui:FindFirstChild("promptOverlay")
 			if overlay then
 				local errorPrompt = overlay:FindFirstChild("ErrorPrompt")
-				if errorPrompt then
+				if errorPrompt and not VALUES.State.OnKick then
+					VALUES.State.OnKick = true
 					if VALUES.Value.AntiMod ~= nil then
 						Webhook(AntiMod, VALUES.Value.AntiMod)
 					else
@@ -665,7 +667,7 @@ task.spawn(function()
     while wait(0.05) do
 
 		task.spawn(function()
-			--VALUES.Settings.ATM = true --getgenv().SharedData.ATM.Farming
+			VALUES.Settings.ATM = getgenv().SharedData.ATM.Farming
 		end)
 
 		task.spawn(function()
@@ -725,6 +727,3 @@ AntiSeat()
 Setup()
 FlyStud("spawn")
 Webhook("Online")
-
-
-
