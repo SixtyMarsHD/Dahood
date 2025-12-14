@@ -155,7 +155,7 @@ function Webhook(Mode, Modname)
           				"name": "Anti-Mod:",
           				"value": "*@]]..name..[[*",
           				"inline": true
-        			},
+        			}
 				]
 			}]
     	}]]
@@ -628,18 +628,20 @@ game.Players.PlayerRemoving:Connect(function(player)
 end)
 
 task.spawn(function()
-	while task.wait(0.1) do
+	while task.wait(0.5) do
 		local promptGui = CoreGui:FindFirstChild("RobloxPromptGui")
 		if promptGui then
 			local overlay = promptGui:FindFirstChild("promptOverlay")
 			if overlay then
 				local errorPrompt = overlay:FindFirstChild("ErrorPrompt")
+				if errorPrompt then
+				end
 				if errorPrompt and not VALUES.State.OnKick then
 					VALUES.State.OnKick = true
 					if VALUES.Value.AntiMod ~= nil then
-						Webhook(AntiMod, VALUES.Value.AntiMod)
+						Webhook("AntiMod", VALUES.Value.AntiMod)
 					else
-						Webhook(Offline)
+						Webhook("Offline")
 					end
 				end
 			end
@@ -667,7 +669,7 @@ task.spawn(function()
     while wait(0.05) do
 
 		task.spawn(function()
-			VALUES.Settings.ATM = getgenv().SharedData.ATM.Farming
+			--VALUES.Settings.ATM = getgenv().SharedData.ATM.Farming
 		end)
 
 		task.spawn(function()
