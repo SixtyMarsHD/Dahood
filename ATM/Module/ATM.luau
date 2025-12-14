@@ -175,12 +175,19 @@ end
 local function FastCollect()
 	if VALUES.Settings.Farming and not VALUES.State.CanFastCollect and VALUES.Value.CanFastCollect and VALUES.Settings.FastCollect then
 		VALUES.State.CanFastCollect = true
+		print("Fast Collecting...")
 		for _, part in pairs(workspace:FindFirstChild("Ignored"):FindFirstChild("Drop"):GetChildren()) do
-			if part:IsA("BasePart") and part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") and HumRoot then
+			if part:IsA("BasePart") and part.Name == "MoneyDrop" and HumRoot then
 				if (part.Position - HumRoot.Position).Magnitude <= 10 then
-					fireclickdetector(part:FindFirstChild("ClickDetector"))
+					print("< 10")
+					if part:FindFirstChild("ClickDetector") then
+						fireclickdetector(part:FindFirstChild("ClickDetector"))
+					end
+					task.wait()
 					break
 				end
+			else
+				print("> 10")
 			end
 		end		
 		VALUES.State.CanFastCollect = false
@@ -218,7 +225,7 @@ local function ATM()
 						)
 						
 						if VALUES.Value.Respawn then return end
-						task.delay(0.25, function()
+						task.delay(0.5, function()
 							if not VALUES.Value.Respawn then
 								VALUES.Value.CanFastCollect = true
 							end
@@ -241,7 +248,7 @@ local function ATM()
 								Combat:Deactivate()
 							end
 						end
-						
+
 						if Char:FindFirstChild("Combat") then
 							Char:FindFirstChild("Combat").Parent = Backpack
 						end

@@ -1,0 +1,20 @@
+local RunService = game:GetService("RunService")
+
+local Player = game.Players.LocalPlayer
+local Char = Player.Character or Player.CharacterAdded:Wait()
+local HumanoidRootPart = Char:WaitForChild("HumanoidRootPart")
+local Humanoid = Char:WaitForChild("Humanoid")
+local Backpack = Player.Backpack
+local PlayerGui = Player:WaitForChild("PlayerGui")
+
+local oldpos = nil
+
+RunService.Stepped:Connect(function()
+   oldpos = HumanoidRootPart.CFrame
+   HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + CFrame.new(0, 15, 0)
+end)
+
+
+RunService.RenderStepped:Connect(function()
+    HumanoidRootPart.CFrame = oldpos
+end)
