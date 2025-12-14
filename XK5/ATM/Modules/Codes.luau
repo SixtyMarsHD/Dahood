@@ -11,6 +11,7 @@ local Codes = {
 
 if getgenv().SharedData.AutoRedeemCodes then
     for _, code in pairs(Codes) do
+        print(code)
         MainEvent:FireServer("EnterPromoCode", code)
         task.wait(5)
     end
