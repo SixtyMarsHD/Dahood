@@ -86,7 +86,7 @@ function Webhook(Mode, Modname)
     	}]]
 
 		request({
-    		Url = DiscordWebHook_URL,
+    		Url = VALUES.Settings.DiscordWebHook_URL,
     		Method = "POST",
     		Headers = {
         		["Content-Type"] = "application/json"
@@ -121,7 +121,7 @@ function Webhook(Mode, Modname)
     	}]]
 
 		request({
-    		Url = DiscordWebHook_URL,
+    		Url = VALUES.Settings.DiscordWebHook_URL,
     		Method = "POST",
     		Headers = {
         		["Content-Type"] = "application/json"
@@ -161,7 +161,7 @@ function Webhook(Mode, Modname)
     	}]]
 
 		request({
-    		Url = DiscordWebHook_URL,
+    		Url = VALUES.Settings.DiscordWebHook_URL,
     		Method = "POST",
     		Headers = {
         		["Content-Type"] = "application/json"
