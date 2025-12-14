@@ -1,5 +1,5 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local MainEvent = ReplicatedStorage:WaitForChild("Main.Event")
+local MainEvent = ReplicatedStorage:WaitForChild("MainEvent")
 
 game.Players.LocalPlayer:WaitForChild("DataFolder")
 task.wait(1)
