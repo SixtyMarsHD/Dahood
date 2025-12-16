@@ -480,7 +480,7 @@ function FastCollect()
 				end
 			end
 		end		
-		VALUES.State.CollectOnDeathath = false
+		VALUES.State.CollectOnDeath = false
 	end
 end
 
