@@ -528,8 +528,8 @@ local function ATM()
 
 						local Head = Model:FindFirstChild("Open")
 						VALUES.FlyStud.CFrame = CFrame.new(
-							Head.Position + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck(),
-							Head.Position + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector
+							Head.Position - Vector3.new(0, -5, 0) + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck(),
+							Head.Position - Vector3.new(0, -5, 0) + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector
 						)
 						
 						if v.Health >= 0 and CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then 
@@ -564,7 +564,7 @@ local function ATM()
 										VALUES.FlyStud.CFrame = CFrame.new(part.Position - Vector3.new(0, 5, 0))
 										task.wait(0.2)
 
-										while part and part.Parent and VALUES.FlyStud do
+										while part and part.Parent and VALUES.FlyStud and (part.Position - Head.Position).Magnitude <= 20 do
 											VALUES.FlyStud.CFrame = CFrame.new(part.Position - Vector3.new(0, 5, 0))
 											task.wait()
 											if part:FindFirstChild("ClickDetector") and not VALUES.Value.Respawn then
