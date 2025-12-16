@@ -528,9 +528,10 @@ local function ATM()
 
 						local Head = Model:FindFirstChild("Open")
 						VALUES.FlyStud.CFrame = CFrame.new(
-							Head.Position - Vector3.new(0, 5, 0) + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck(),
-							Head.Position - Vector3.new(0, 5, 0) + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector
+    						Head.Position - Vector3.new(0, 5, 0) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5,
+    						Head.Position - Vector3.new(0, 5, 0) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5 + Vector3.new(Head.CFrame.LookVector.X, 0, Head.CFrame.LookVector.Z)
 						)
+
 						
 						if v.Health >= 0 and CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then 
 							CombatTool:Activate()
