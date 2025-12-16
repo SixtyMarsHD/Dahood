@@ -8,9 +8,9 @@ local Codes = {
     "XMAS2025",
     "HAPPYHOLIDAYS25"
 }
-print(getgenv().SharedData.AutoRedeemCodes)
+print(getgenv().SharedData.Settings.AutoRedeemCodes)
 print(Codes)
-if getgenv().SharedData.AutoRedeemCodes then
+if getgenv().SharedData.Settings.AutoRedeemCodes then
     for _, code in pairs(Codes) do
         print(code)
         MainEvent:FireServer("EnterPromoCode", code)
