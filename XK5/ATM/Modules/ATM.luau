@@ -468,8 +468,11 @@ function FastCollect()
 		print("fastcolleting")
 		for _, part in pairs(workspace:FindFirstChild("Ignored"):FindFirstChild("Drop"):GetChildren()) do
 			if part:IsA("BasePart") and part.Name == "MoneyDrop" and HumRoot then
+				print("found money drop")
 				if (part.Position - HumRoot.Position).Magnitude <= 10 then
+					print("part is near")
 					if part:FindFirstChild("ClickDetector") then
+						print("fround clickdetector")
 						fireclickdetector(part:FindFirstChild("ClickDetector"))
 					end
                     task.wait()
@@ -603,8 +606,10 @@ function HumanoidDied()
 				FlyStud("remove")
 				VALUES.Value.HasMask = false
 				VALUES.Value.CollectOnDeath = true
+				print("CollectOnDeath on")
 				task.delay(2.5, function()
 					VALUES.Value.CollectOnDeath = false
+					print("CollectOnDeath off")
 				end)
 			end
 		end)
