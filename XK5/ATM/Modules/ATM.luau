@@ -33,7 +33,7 @@ local VALUES = {
 		DiscordWebHook = getgenv().SharedData.Settings.DiscordWebHook,
 		DiscordWebHook_URL = getgenv().SharedData.Settings.DiscordWebHook_URL,
 	},
-	
+
 	Value = {
 		Respawn = false,
 		noclip = true,
@@ -528,8 +528,8 @@ local function ATM()
 
 						local Head = Model:FindFirstChild("Open")
 						VALUES.FlyStud.CFrame = CFrame.new(
-							Head.Position - Vector3.new(0, -5, 0) + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck(),
-							Head.Position - Vector3.new(0, -5, 0) + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector
+							Head.Position - Vector3.new(0, 5, 0) + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck(),
+							Head.Position - Vector3.new(0, 5, 0) + Head.CFrame.LookVector * 0.5 + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector
 						)
 						
 						if v.Health >= 0 and CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then 
