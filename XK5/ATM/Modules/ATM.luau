@@ -49,7 +49,7 @@ local VALUES = {
 		Others = false,
 		AntiStomp = false,
 		AntiAFK = false,
-		CollectOnDeath = true,
+		CollectOnDeath = false,
         BuyMask = false,
 		Void = false,
 		UnJail = false,
@@ -463,8 +463,8 @@ function Void(value)
 end
 
 function FastCollect()
-	if VALUES.Settings.ATM and VALUES.Settings.CollectOnDeath and VALUES.Value.CanCollectOnDeath and VALUES.State.CollectOnDeath then
-		VALUES.State.CollectOnDeath = false
+	if VALUES.Settings.ATM and VALUES.Settings.CollectOnDeath and VALUES.Value.CollectOnDeath and not VALUES.State.CollectOnDeath then
+		VALUES.State.CollectOnDeath = true
 		for _, part in pairs(workspace:FindFirstChild("Ignored"):FindFirstChild("Drop"):GetChildren()) do
 			if part:IsA("BasePart") and part.Name == "MoneyDrop" and HumRoot then
 				if (part.Position - HumRoot.Position).Magnitude <= 10 then
@@ -476,7 +476,7 @@ function FastCollect()
 				end
 			end
 		end		
-		VALUES.State.CollectOnDeathath = true
+		VALUES.State.CollectOnDeathath = false
 	end
 end
 
@@ -601,9 +601,9 @@ function HumanoidDied()
 				VALUES.Value.Respawn = true
 				FlyStud("remove")
 				VALUES.Value.HasMask = false
-				VALUES.Value.CanCollectOnDeathath = true
+				VALUES.Value.CollectOnDeath = true
 				task.delay(2.5, function()
-					VALUES.Value.CanCollectOnDeath = false
+					VALUES.Value.CollectOnDeath = false
 				end)
 			end
 		end)
