@@ -465,6 +465,7 @@ end
 function FastCollect()
 	if VALUES.Settings.ATM and VALUES.Settings.CollectOnDeath and VALUES.Value.CollectOnDeath and not VALUES.State.CollectOnDeath then
 		VALUES.State.CollectOnDeath = true
+		print("fastcolleting")
 		for _, part in pairs(workspace:FindFirstChild("Ignored"):FindFirstChild("Drop"):GetChildren()) do
 			if part:IsA("BasePart") and part.Name == "MoneyDrop" and HumRoot then
 				if (part.Position - HumRoot.Position).Magnitude <= 10 then
