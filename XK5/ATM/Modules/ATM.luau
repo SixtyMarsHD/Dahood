@@ -512,7 +512,7 @@ local function ATM()
 		if Model.Name == "CA$HIER" then
 			for _, v in pairs(Model:GetChildren()) do
 				if v:IsA("Humanoid") then
-					if v.Health >= 0 and VALUES.FlyStud ~= nil then
+					if v.Health > 0 and VALUES.FlyStud ~= nil then
 
                         if CombatTool then CombatTool.Parent = Char end
                         
@@ -530,17 +530,23 @@ local function ATM()
 	                        end					
                         end
 
-						local Head = Model:FindFirstChild("Open")
-						VALUES.FlyStud.CFrame = CFrame.new(
-    						Head.Position - Vector3.new(0, 2, 0) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5,
-    						Head.Position - Vector3.new(0, 2, 0) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5 + Vector3.new(Head.CFrame.LookVector.X, 0, Head.CFrame.LookVector.Z)
-						)
+						local function TpOffset(x,y,z)
+							local Head = Model:FindFirstChild("Open")
+							VALUES.FlyStud.CFrame = CFrame.new(
+    							Head.Position + Vector3.new(x,y,z) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5,
+    							Head.Position + Vector3.new(x,y,z) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5 + Vector3.new(Head.CFrame.LookVector.X, 0, Head.CFrame.LookVector.Z)
+							)
+						end
 
+						TpOffset(0,-10,0)
 						
 						if v.Health >= 0 and CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then 
 							CombatTool:Activate()
                             task.wait(0.5)
                             if Char:FindFirstChild("BodyEffects"):FindFirstChild("Attacking").Value == true then
+								task.delay(1.5, function()
+									TpOffset(0,2,0)
+								end)
 							    task.wait(2.5)
                             end
 							if CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then
@@ -553,6 +559,9 @@ local function ATM()
 							CombatTool:Activate()
                             task.wait(0.5)
 							if Char:FindFirstChild("BodyEffects"):FindFirstChild("Attacking").Value == true then
+								task.delay(1.5, function()
+									TpOffset(0,2,0)
+								end)
 							    task.wait(2)
                             end
 							if CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then
