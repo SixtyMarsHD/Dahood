@@ -12,6 +12,7 @@ getgenv().Settings = {
     ["Disable3DRendering"] = false, --If Disable3DRendering is true then "FpsBoost" is useless!
 
     ["AutoRedeemCodes"] = true, --Automatically redeems all available codes
+    ["AutoWatchADS"] = true, --Automatically watches ads and claim the reward
 }
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/Main.luau"))()

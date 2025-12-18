@@ -546,7 +546,9 @@ local function ATM()
 								task.delay(1, function()
 									TpOffset(0,-2,0)
 								end)
-							    task.wait(2.5)
+							    task.wait(2)
+								TpOffset(0,-10,0)
+								task.wait(0.5)
                             end
 							if CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then
 								CombatTool:Deactivate()
@@ -563,6 +565,7 @@ local function ATM()
 									TpOffset(0,-2,0)
 								end)
 							    task.wait(2)
+								TpOffset(0,-10,0)
                             end
 							if CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then
 								CombatTool:Deactivate()
