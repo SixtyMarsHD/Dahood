@@ -711,7 +711,6 @@ task.spawn(function()
                 	if VALUES.FlyStud == nil then
                     	FlyStud("spawn")
                 	end
-                	print("ATMing...")
                 	ATM()
                 	task.wait(0.05)
                 	VALUES.State.ATM = false
