@@ -530,8 +530,8 @@ local function ATM()
 	                        end					
                         end
 
+						local Head = Model:FindFirstChild("Open")
 						local function TpOffset(x,y,z)
-							local Head = Model:FindFirstChild("Open")
 							VALUES.FlyStud.CFrame = CFrame.new(
     							Head.Position + Vector3.new(x,y,z) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5,
     							Head.Position + Vector3.new(x,y,z) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5 + Vector3.new(Head.CFrame.LookVector.X, 0, Head.CFrame.LookVector.Z)
