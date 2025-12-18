@@ -544,8 +544,8 @@ local function ATM()
 							CombatTool:Activate()
                             task.wait(0.5)
                             if Char:FindFirstChild("BodyEffects"):FindFirstChild("Attacking").Value == true then
-								task.delay(1.5, function()
-									TpOffset(0,2,0)
+								task.delay(1, function()
+									TpOffset(0,-2,0)
 								end)
 							    task.wait(2.5)
                             end
@@ -559,8 +559,8 @@ local function ATM()
 							CombatTool:Activate()
                             task.wait(0.5)
 							if Char:FindFirstChild("BodyEffects"):FindFirstChild("Attacking").Value == true then
-								task.delay(1.5, function()
-									TpOffset(0,2,0)
+								task.delay(1, function()
+									TpOffset(0,-2,0)
 								end)
 							    task.wait(2)
                             end
@@ -572,7 +572,7 @@ local function ATM()
 						if CombatTool then CombatTool.Parent = Backpack end
 
 						for _, part in pairs(workspace:FindFirstChild("Ignored"):FindFirstChild("Drop"):GetChildren()) do
-							if part:IsA("BasePart") and not VALUES.Value.Respawn then
+							if part and part:IsA("BasePart") and not VALUES.Value.Respawn then
 								if part.Name == "MoneyDrop" and part:FindFirstChild("ClickDetector") and VALUES.FlyStud ~= nil then
 									if (part.Position - Head.Position).Magnitude <= 20 then
 										VALUES.FlyStud.CFrame = CFrame.new(part.Position - Vector3.new(0, 5, 0))
