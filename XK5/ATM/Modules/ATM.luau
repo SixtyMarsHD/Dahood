@@ -537,11 +537,10 @@ local function ATM()
     							Head.Position + Vector3.new(x,y,z) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5 + Vector3.new(Head.CFrame.LookVector.X, 0, Head.CFrame.LookVector.Z)
 							)
 						end
-
-						TpOffset(0,-10,0)
 						
 						if v.Health >= 0 and CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then 
 							CombatTool:Activate()
+							TpOffset(0,-10,0)
                             task.wait(0.5)
                             if Char:FindFirstChild("BodyEffects"):FindFirstChild("Attacking").Value == true then
 								task.delay(1, function()
@@ -557,6 +556,7 @@ local function ATM()
 						task.wait(0.2)
 						if v.Health >= 0 and CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then
 							CombatTool:Activate()
+							TpOffset(0,-10,0)
                             task.wait(0.5)
 							if Char:FindFirstChild("BodyEffects"):FindFirstChild("Attacking").Value == true then
 								task.delay(1, function()
