@@ -486,8 +486,9 @@ function Debug(Mode, Parent, Value)
 	if VALUES.Settings.Debug then
 		local function AtmBall()
 			if Value then
-				local Ball = Instance.new("Part", Parent)
-				Ball.Size = Vector3.new(20,20,20)
+				local Ball = Instance.new("Part", game.Workspace)
+				Ball.Name = "AtmBall"
+				Ball.Size = Vector3.new(10,10,10)
 				Ball.Position = Parent.Position
 				Ball.Shape = Enum.PartType.Ball
 				Ball.Anchored = true
@@ -495,8 +496,8 @@ function Debug(Mode, Parent, Value)
 				Ball.CanCollide = false
 				Ball.Color = Color3.fromRGB(85, 255, 0)
 			else
-				for _, v in pairs(Parent:GetChildren()) do
-					if v:IsA("Part") and v.Shape == Enum.PartType.Ball then
+				for _, v in pairs(game.Workspace:GetChildren()) do
+					if v:IsA("Part") and v.Name == "AtmBall" and v.Shape == Enum.PartType.Ball then
 					v:Destroy()
 					end
 				end
@@ -504,7 +505,8 @@ function Debug(Mode, Parent, Value)
 		end
 
 		local function CharBall()
-			local Ball = Instance.new("Part", Parent)
+			local Ball = Instance.new("Part", game.Workspace)
+			Ball.Name = "CharBall"
 			Ball.Size = Vector3.new(10,10,10)
 			Ball.Position = Parent.Position
 			Ball.Shape = Enum.PartType.Ball
