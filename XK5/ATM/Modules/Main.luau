@@ -18,17 +18,6 @@ getgenv().SharedData = {
 }
 
 local ATM_Script = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/ATM.luau"))()
-local Codes_Script = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/Codes.luau"))()
-local FRAMEWORK_Script = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/FRAMEWORK.luau"))()
+local RedeemCodes_Script = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/RedeemCodes.luau"))()
+local WatchADS_Script = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/WatchADS.luau"))()
 
-local UserInputService = game:GetService("UserInputService")
-UserInputService.InputBegan:Connect(function(input, gameProcessed)
-   
-    if gameProcessed then return end
-    
-    if input.KeyCode == Enum.KeyCode.M then
-        print("Opening Weapon Skins GUI...")
-      FRAMEWORK_Script.OpenWeaponSkinsGUI()
-    end
-end)
---hi
