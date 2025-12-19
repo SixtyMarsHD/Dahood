@@ -9,12 +9,19 @@ local AdWatchDebounce = DataFolder:WaitForChild("AdWatchDebounce")
 
 if getgenv().SharedData.Settings.AutoWatchADS then
     while task.wait(1) do
-        if (AdWatchDebounce.Value + 1000) <= os.time() then
-            MainEvent:FireServer("GamePurchase", "AdVideo")
-            print("Watched Ad fired")
-            wait(5)
+
+        if require(game.ReplicatedStorage.AdModule).checkForAds() then
+            v_u_17:FireServer("GamePurchase", "AdVideo")
         else
-            print("waiting "..AdWatchDebounce.Value + 1000 - os.time().." / 1000")
+            _G.Notification("No Ads at the moment")
         end
+
+        --if (AdWatchDebounce.Value + 1000) <= os.time() then
+            --MainEvent:FireServer("GamePurchase", "AdVideo")
+            --print("Watched Ad fired")
+            --wait(5)
+        --else
+            --print("waiting "..AdWatchDebounce.Value + 1000 - os.time().." / 1000")
+        --end
     end
 end
