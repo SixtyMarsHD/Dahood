@@ -32,6 +32,7 @@ local VALUES = {
 		FpsCap = getgenv().SharedData.Settings.FpsCap,
 		DiscordWebHook = getgenv().SharedData.Settings.DiscordWebHook,
 		DiscordWebHook_URL = getgenv().SharedData.Settings.DiscordWebHook_URL,
+		Debug = true,
 	},
 
 	Value = {
@@ -465,14 +466,10 @@ end
 function FastCollect()
 	if VALUES.Settings.ATM and VALUES.Settings.CollectOnDeath and VALUES.Value.CollectOnDeath and not VALUES.State.CollectOnDeath then
 		VALUES.State.CollectOnDeath = true
-		print("fastcolleting")
 		for _, part in pairs(Workspace:FindFirstChild("Ignored"):FindFirstChild("Drop"):GetChildren()) do
 			if part:IsA("BasePart") and part.Name == "MoneyDrop" and HumRoot then
-				print("found money drop")
 				if (part.Position - HumRoot.Position).Magnitude <= 10 then
-					print("part is near")
 					if part:FindFirstChild("ClickDetector") then
-						print("fround clickdetector")
 						fireclickdetector(part:FindFirstChild("ClickDetector"))
 					end
                     task.wait()
@@ -482,6 +479,46 @@ function FastCollect()
 		end		
 		VALUES.State.CollectOnDeath = false
 	end
+end
+
+function Debug(Mode, Parent, Value)
+
+	if VALUES.Settings.Debug then
+		local function AtmBall()
+			if Value then
+				local Ball = Instance.new("Part", Parent)
+				Ball.Size = Vector3.new(20,20,20)
+				Ball.Shape = Enum.PartType.Ball
+				Ball.Anchored = true
+				Ball.CastShadow = false
+				Ball.CanCollide = false
+				Ball.Color = Color3.new(85, 255, 0)
+			else
+				for _, v in pairs(Parent:GetChildren()) do
+					if v:IsA("Part") and v.Shape == Enum.PartType.Ball then
+					v:Destroy()
+					end
+				end
+			end
+		end
+
+		local funtion CharBall()
+			local Ball = Instance.new("Part", Parent)
+			Ball.Size = Vector3.new(20,20,20)
+			Ball.Shape = Enum.PartType.Ball
+			Ball.Anchored = true
+			Ball.CastShadow = false
+			Ball.CanCollide = false
+			Ball.Color = Color3.new(255, 0, 0)
+		end
+
+		if Mode == "AtmBall" then
+			AtmBall()
+		elseif Mode == "CharBall" then
+			CharBall()
+		end
+	end
+	
 end
 
 local function AllDeadInFolder()
@@ -539,6 +576,8 @@ local function ATM()
 								)
 							end
 						end
+
+						Debug("AtmBall", Head, true)
 						
 						if v.Health >= 0 and CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then 
 							CombatTool:Activate()
@@ -595,6 +634,7 @@ local function ATM()
 								end
 							end
 						end
+						Debug("AtmBall", Head, false)
 						return
 					end
 				end
@@ -620,10 +660,9 @@ function HumanoidDied()
 				FlyStud("remove")
 				VALUES.Value.HasMask = false
 				VALUES.Value.CollectOnDeath = true
-				print("CollectOnDeath on")
+				Debug("CharBall", HumRoot)
 				task.delay(2.5, function()
 					VALUES.Value.CollectOnDeath = false
-					print("CollectOnDeath off")
 				end)
 			end
 		end)

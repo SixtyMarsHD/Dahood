@@ -12,8 +12,6 @@ if getgenv().SharedData.Settings.AutoWatchADS then
 
         if require(game.ReplicatedStorage.AdModule).checkForAds() then
             MainEvent:FireServer("GamePurchase", "AdVideo")
-        else
-            _G.Notification("No Ads at the moment")
         end
 
         --if (AdWatchDebounce.Value + 1000) <= os.time() then
