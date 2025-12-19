@@ -492,7 +492,7 @@ function Debug(Mode, Parent, Value)
 				Ball.Anchored = true
 				Ball.CastShadow = false
 				Ball.CanCollide = false
-				Ball.Color = Color3.new(85, 255, 0)
+				Ball.Color = Color3.fromRGB(85, 255, 0)
 			else
 				for _, v in pairs(Parent:GetChildren()) do
 					if v:IsA("Part") and v.Shape == Enum.PartType.Ball then
@@ -502,14 +502,14 @@ function Debug(Mode, Parent, Value)
 			end
 		end
 
-		local funtion CharBall()
+		local function CharBall()
 			local Ball = Instance.new("Part", Parent)
-			Ball.Size = Vector3.new(20,20,20)
+			Ball.Size = Vector3.new(10,10,10)
 			Ball.Shape = Enum.PartType.Ball
 			Ball.Anchored = true
 			Ball.CastShadow = false
 			Ball.CanCollide = false
-			Ball.Color = Color3.new(255, 0, 0)
+			Ball.Color = Color3.fromRGB(255, 0, 0)
 		end
 
 		if Mode == "AtmBall" then
