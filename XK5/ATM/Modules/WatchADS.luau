@@ -11,7 +11,7 @@ if getgenv().SharedData.Settings.AutoWatchADS then
     while task.wait(1) do
 
         if require(game.ReplicatedStorage.AdModule).checkForAds() then
-            v_u_17:FireServer("GamePurchase", "AdVideo")
+            MainEvent:FireServer("GamePurchase", "AdVideo")
         else
             _G.Notification("No Ads at the moment")
         end
