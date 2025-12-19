@@ -488,7 +488,7 @@ function Debug(Mode, Parent, Value)
 			if Value then
 				local Ball = Instance.new("Part", game.Workspace)
 				Ball.Name = "AtmBall"
-				Ball.Size = Vector3.new(20,20,20)
+				Ball.Size = Vector3.new(40,40,40)
 				Ball.Position = Parent.Position
 				Ball.Shape = Enum.PartType.Ball
 				Ball.Material = Enum.Material.ForceField
@@ -509,7 +509,7 @@ function Debug(Mode, Parent, Value)
 			if Value then
 				local Ball = Instance.new("Part", game.Workspace)
 				Ball.Name = "CharBall"
-				Ball.Size = Vector3.new(10,10,10)
+				Ball.Size = Vector3.new(20,20,20)
 				Ball.Position = Parent.Position
 				Ball.Shape = Enum.PartType.Ball
 				Ball.Material = Enum.Material.ForceField
