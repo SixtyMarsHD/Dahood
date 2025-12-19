@@ -488,6 +488,7 @@ function Debug(Mode, Parent, Value)
 			if Value then
 				local Ball = Instance.new("Part", Parent)
 				Ball.Size = Vector3.new(20,20,20)
+				Ball.Position = Parent.Position
 				Ball.Shape = Enum.PartType.Ball
 				Ball.Anchored = true
 				Ball.CastShadow = false
@@ -505,6 +506,7 @@ function Debug(Mode, Parent, Value)
 		local function CharBall()
 			local Ball = Instance.new("Part", Parent)
 			Ball.Size = Vector3.new(10,10,10)
+			Ball.Position = Parent.Position
 			Ball.Shape = Enum.PartType.Ball
 			Ball.Anchored = true
 			Ball.CastShadow = false
