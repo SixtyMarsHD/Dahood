@@ -532,10 +532,12 @@ local function ATM()
 
 						local Head = Model:FindFirstChild("Open")
 						local function TpOffset(x,y,z)
-							VALUES.FlyStud.CFrame = CFrame.new(
-    							Head.Position + Vector3.new(x,y,z) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5,
-    							Head.Position + Vector3.new(x,y,z) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5 + Vector3.new(Head.CFrame.LookVector.X, 0, Head.CFrame.LookVector.Z)
-							)
+							if VALUES.FlyStud ~= nil and not VALUES.Value.Respawn then
+								VALUES.FlyStud.CFrame = CFrame.new(
+    								Head.Position + Vector3.new(x,y,z) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5,
+    								Head.Position + Vector3.new(x,y,z) + Head.CFrame.RightVector * AntiStuck() + Head.CFrame.LookVector * 0.5 + Vector3.new(Head.CFrame.LookVector.X, 0, Head.CFrame.LookVector.Z)
+								)
+							end
 						end
 						
 						if v.Health >= 0 and CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then 
