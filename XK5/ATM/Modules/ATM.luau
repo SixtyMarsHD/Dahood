@@ -488,9 +488,10 @@ function Debug(Mode, Parent, Value)
 			if Value then
 				local Ball = Instance.new("Part", game.Workspace)
 				Ball.Name = "AtmBall"
-				Ball.Size = Vector3.new(10,10,10)
+				Ball.Size = Vector3.new(20,20,20)
 				Ball.Position = Parent.Position
 				Ball.Shape = Enum.PartType.Ball
+				Ball.Material = Enum.Material.ForceField
 				Ball.Anchored = true
 				Ball.CastShadow = false
 				Ball.CanCollide = false
@@ -505,15 +506,24 @@ function Debug(Mode, Parent, Value)
 		end
 
 		local function CharBall()
-			local Ball = Instance.new("Part", game.Workspace)
-			Ball.Name = "CharBall"
-			Ball.Size = Vector3.new(10,10,10)
-			Ball.Position = Parent.Position
-			Ball.Shape = Enum.PartType.Ball
-			Ball.Anchored = true
-			Ball.CastShadow = false
-			Ball.CanCollide = false
-			Ball.Color = Color3.fromRGB(255, 0, 0)
+			if Value then
+				local Ball = Instance.new("Part", game.Workspace)
+				Ball.Name = "CharBall"
+				Ball.Size = Vector3.new(10,10,10)
+				Ball.Position = Parent.Position
+				Ball.Shape = Enum.PartType.Ball
+				Ball.Material = Enum.Material.ForceField
+				Ball.Anchored = true
+				Ball.CastShadow = false
+				Ball.CanCollide = false
+				Ball.Color = Color3.fromRGB(255, 0, 0)
+			else
+				for _, v in pairs(game.Workspace:GetChildren()) do
+					if v:IsA("Part") and v.Name == "CharBall" and v.Shape == Enum.PartType.Ball then
+					v:Destroy()
+					end
+				end
+			end
 		end
 
 		if Mode == "AtmBall" then
@@ -664,9 +674,10 @@ function HumanoidDied()
 				FlyStud("remove")
 				VALUES.Value.HasMask = false
 				VALUES.Value.CollectOnDeath = true
-				Debug("CharBall", HumRoot)
+				Debug("CharBall", HumRoot, true)
 				task.delay(2.5, function()
 					VALUES.Value.CollectOnDeath = false
+					Debug("CharBall", HumRoot, false)
 				end)
 			end
 		end)
