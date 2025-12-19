@@ -362,7 +362,7 @@ function AntiSeat()
 end
 
 function AntiMod(player, info)
-	if VALUES.Settings.AntiMod and palyer and (player:IsInGroup(10604500) or player:IsInGroup(8068202)) then
+	if VALUES.Settings.AntiMod and player and (player:IsInGroup(10604500) or player:IsInGroup(8068202)) then
 		if info == "Joined" then
 			VALUES.Value.AntiMod = player.Name
         	Player:Kick(player.Name.." Joined the game! (Anti-Mod)")
