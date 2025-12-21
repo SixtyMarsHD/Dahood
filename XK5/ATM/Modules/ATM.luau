@@ -1,3 +1,5 @@
+print(getgenv().SharedData.Settings.Interval)
+
 local CoreGui = game:GetService("CoreGui")
 local TeleportService = game:GetService("TeleportService")
 local VirtualUser = game:GetService("VirtualUser")
@@ -183,7 +185,7 @@ function Webhook(Mode, Modname)
 
 		local body = [[{
   			"embeds": [{
-      			"title": "Status",
+      			"title": "Info",
       			"color": 4278193,
       			"fields": [
         			{
