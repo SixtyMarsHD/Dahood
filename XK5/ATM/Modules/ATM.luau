@@ -184,7 +184,7 @@ function Webhook(Mode, Modname)
 		local body = [[{
   			"embeds": [{
       			"title": "Status",
-      			"color": 11393254,
+      			"color": 4278193,
       			"fields": [
         			{
           				"name": "]]..game.Players.LocalPlayer.DisplayName..[[",
@@ -209,6 +209,11 @@ function Webhook(Mode, Modname)
 					{
           				"name": "\u200b",
           				"value": "\u200b",
+          				"inline": true
+        			},
+					{
+          				"name": "Atms",
+          				"value": "]]..tostring(VALUES.SharedData.ATM.AtmsOpened)..[[",
           				"inline": true
         			},
 					{
