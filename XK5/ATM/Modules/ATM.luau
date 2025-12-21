@@ -215,7 +215,7 @@ function Webhook(Mode, Modname)
           				"name": "Time",
           				"value": "]]..formatted..[[",
           				"inline": true
-        			},
+        			}
 				]
 			}]
     	}]]
