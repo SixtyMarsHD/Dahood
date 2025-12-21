@@ -5,6 +5,7 @@ getgenv().SharedData = {
         ["AntiMod"] = getgenv().Settings.AntiMod,
         ["DiscordWebHook"] = getgenv().Settings.DiscordWebHook,
         ["DiscordWebHook_URL"] = getgenv().Settings.DiscordWebHook_URL,
+        ["Interval"] = getgenv().Settings.Interval,
         ["FpsCap"] = getgenv().Settings.FpsCap,
         ["FpsBoost"] = getgenv().Settings.FpsBoost,
         ["Disable3DRendering"] = getgenv().Settings.Disable3DRendering,
@@ -14,6 +15,10 @@ getgenv().SharedData = {
 
     ATM = {
         ["Farming"] = true,
+        ["FarmingTime"] = 0,
+        ["AtmsOpened"] = 0,
+        ["Profit"] = 0,
+
     }
 }
 

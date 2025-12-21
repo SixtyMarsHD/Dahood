@@ -32,6 +32,7 @@ local VALUES = {
 		FpsCap = getgenv().SharedData.Settings.FpsCap,
 		DiscordWebHook = getgenv().SharedData.Settings.DiscordWebHook,
 		DiscordWebHook_URL = getgenv().SharedData.Settings.DiscordWebHook_URL,
+		Interval = getgenv().SharedData.Settings.Interval,
 		Debug = true,
 	},
 
@@ -171,6 +172,64 @@ function Webhook(Mode, Modname)
 		})
 	end
 
+	local function MoneyInfo_webhook(name)
+		local time = getgenv().SharedData.ATM.FarmingTime
+		local d = math.floor(time/86400)
+		local h = math.floor(time%86400/3600)
+		local m = math.floor(time%3600/60)
+		local s = math.floor(time%60)
+
+		local formatted = (d>0 and d.."d " or "") .. ((h>0 or d>0) and h.."h " or "") .. ((m>0 or h>0 or d>0) and m.."m " or "") ..  s.."s"
+
+		local body = [[{
+  			"embeds": [{
+      			"title": "Status",
+      			"color": 11393254,
+      			"fields": [
+        			{
+          				"name": "]]..game.Players.LocalPlayer.DisplayName..[[",
+          				"value": "*@]]..game.Players.LocalPlayer.Name..[[*",
+          				"inline": true
+        			},
+        			{
+          				"name": "\u200b",
+          				"value": "\u200b",
+          				"inline": true
+        			},
+					{
+          				"name": "\u200b",
+          				"value": "\u200b",
+          				"inline": true
+        			},
+        			{
+          				"name": "Profit",
+          				"value": "TEST",
+          				"inline": true
+        			},
+					{
+          				"name": "\u200b",
+          				"value": "\u200b",
+          				"inline": true
+        			},
+					{
+          				"name": "Time",
+          				"value": "]]..formatted..[[",
+          				"inline": true
+        			},
+				]
+			}]
+    	}]]
+
+		request({
+    		Url = VALUES.Settings.DiscordWebHook_URL,
+    		Method = "POST",
+    		Headers = {
+        		["Content-Type"] = "application/json"
+    		},
+    		Body = body
+		})
+	end
+
 	if VALUES.Settings.DiscordWebHook then
 		if Mode == "Online" then
 			Online_webhook()
@@ -178,61 +237,83 @@ function Webhook(Mode, Modname)
 			Offline_webhook()
 		elseif Mode == "AntiMod" then
 			AntiMod_webhook(Modname)
+		elseif Mode == "MoneyInfo" then
+			MoneyInfo_webhook()
 		end
 	end
 	
 end
 
 --//Modules
-function Setup()
+function FirstExecute()
+	Webhook("Online")
 	setfpscap(tonumber(VALUES.Settings.FpsCap))
-
-
-	if VALUES.Settings.FpsBoost then
-		local DeletTable = {}
-		local Items = 0
-		local Count = 0
-		--for _, v in pairs(workspace.Ignored:GetChildren()) do
-			--if v.Name ~= "Drop" and v.Name ~= "Shop" and v.Name ~= "SnowBlock" then
-				--table.insert(DeletTable, v)
-			--end
-		--end
-		for _, v in pairs(workspace.MAP:GetChildren()) do
-			table.insert(DeletTable, v)
-		end
-		for _, v in pairs(workspace.MAP.Map:GetChildren()) do
-			table.insert(DeletTable, v)
-		end
-		for _, v in pairs(workspace.Ignored:GetChildren()) do
-			
-			table.insert(DeletTable, v)
-			
-		end
-
-		Items = #DeletTable
-		for _, v in pairs(DeletTable) do
-			for _, part in pairs(v:GetChildren()) do 
-
-					local highlight = Instance.new("Highlight", part)
-					highlight.FillTransparency = 0
-					highlight.FillColor = Color3.new(1, 0, 0)
-					highlight.OutlineColor = Color3.new(0, 0, 0)
-
-					task.delay(2.5, function()
-					part:Destroy()
-					end)
-					if math.random(1, 1) == 1 then
-					task.wait()
-					end
-					Count += 1
-			end
-		end
-	end
 
 	if VALUES.Settings.Disable3DRendering then
 		game:GetService("RunService"):Set3dRenderingEnabled(false)
 	end
 
+	task.spawn(function()
+		while task.wait(1) do
+			getgenv().SharedData.ATM.FarmingTime += 1
+		end
+	end)
+
+	task.spawn(function()
+		if VALUES.Settings.DiscordWebHook then
+			Webhook("MoneyInfo")
+			while task.wait(Interval*60) do
+				Webhook("MoneyInfo")
+			end
+		end
+	end)
+
+	if VALUES.Settings.FpsBoost then
+		local DeletTable = {}
+
+		local Part = Instance.new("Part", game.Workspace)
+		Part.Name = "FPSBoostFloor"
+		Part.Size = Vector3.new(2048, 1, 2048)
+		Part.Position = Vector3.new(-450, 18, -290)
+		Part.Anchored = true
+
+		if game.Workspace.MAP then table.insert(DeletTable, game.Workspace.MAP) end
+		if game.Workspace.A_Railway_Expansion then table.insert(DeletTable, game.Workspace.A_Railway_Expansion) end
+		if game.Workspace.Christmas_2024 then table.insert(DeletTable, game.Workspace.Christmas_2024) end
+		if game.Workspace.Path then table.insert(DeletTable, game.Workspace.Path) end
+		for _, v in pairs(game.Workspace.Ignored:GetChildren()) do
+			if v.Name ~= "Shop" and v.Name ~= "Drop" and v.Name ~= "SnowBlock" and v.Name ~= "Siren" then
+				table.insert(DeletTable, v)
+			end
+		end
+
+		for _, v in pairs(DeletTable) do
+			for _, part in pairs(v:GetDescendants()) do 
+				if part:IsA("BasePart") then
+					local highlight = Instance.new("Highlight", part)
+					highlight.FillTransparency = 0
+					highlight.FillColor = Color3.new(1, 0, 0)
+					highlight.OutlineColor = Color3.new(0, 0, 0)
+
+					task.delay(0.5, function()
+					part:Destroy()
+					end)
+					if math.random(1, 50) == 1 then
+					task.wait()
+					end
+					Count += 1
+				end
+			end
+			task.delay(0.5, function()
+				V:Destroy()
+			end)
+		end
+
+	end
+end
+
+function Setup()
+	
 	RunService.Stepped:Connect(function()
 		if VALUES.Settings.ATM then
 			Player.DevCameraOcclusionMode = Enum.DevCameraOcclusionMode.Invisicam
@@ -362,15 +443,15 @@ function AntiSeat()
 end
 
 function AntiMod(player, info)
-	if VALUES.Settings.AntiMod and player and (player:IsInGroup(10604500) or player:IsInGroup(8068202)) then
+	local rank = player:GetRankInGroup(4698921)
+	if player and ((player:IsInGroup(4698921) and rank > 1) or (player:IsInGroup(10604500) or player:IsInGroup(8068202))) then
+		VALUES.Value.AntiMod = player.Name
 		if info == "Joined" then
-			VALUES.Value.AntiMod = player.Name
         	Player:Kick(player.Name.." Joined the game! (Anti-Mod)")
 		elseif info == "is already in game" then
-			VALUES.Value.AntiMod = player.Name
 			Player:Kick(player.Name.." Is already in the game! (Anti-Mod)")
 		end
-    end
+	end
 end
 
 function AutoMask()
@@ -517,6 +598,11 @@ function Debug(Mode, Parent, Value)
 				Ball.CastShadow = false
 				Ball.CanCollide = false
 				Ball.Color = Color3.fromRGB(255, 0, 0)
+
+				while Ball do
+					Ball.Position = Parent.Position
+					task.wait()
+				end
 			else
 				for _, v in pairs(game.Workspace:GetChildren()) do
 					if v:IsA("Part") and v.Name == "CharBall" and v.Shape == Enum.PartType.Ball then
@@ -591,6 +677,12 @@ local function ATM()
 							end
 						end
 
+						local function AtmsOpenedChecker()
+							if v.Health <= 0 and not VALUES.Value.Respawn then
+								getgenv().SharedData.ATM.AtmsOpened += 1
+							end
+						end
+
 						Debug("AtmBall", Head, true)
 						
 						if v.Health >= 0 and CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then 
@@ -598,7 +690,7 @@ local function ATM()
 							TpOffset(0,-10,0)
                             task.wait(0.5)
                             if Char:FindFirstChild("BodyEffects"):FindFirstChild("Attacking").Value == true then
-								task.delay(1, function()
+								task.delay(1.3, function()
 									TpOffset(0,-2,0)
 								end)
 							    task.wait(2)
@@ -608,15 +700,16 @@ local function ATM()
 							if CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then
 								CombatTool:Deactivate()
 							end
+							AtmsOpenedChecker()
 						end
-
+						
 						task.wait(0.2)
 						if v.Health >= 0 and CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then
 							CombatTool:Activate()
 							TpOffset(0,-10,0)
                             task.wait(0.5)
 							if Char:FindFirstChild("BodyEffects"):FindFirstChild("Attacking").Value == true then
-								task.delay(1, function()
+								task.delay(1.3, function()
 									TpOffset(0,-2,0)
 								end)
 							    task.wait(2)
@@ -625,6 +718,7 @@ local function ATM()
 							if CombatTool and not VALUES.Value.Respawn and Char:FindFirstChild("Combat") then
 								CombatTool:Deactivate()
 							end
+							AtmsOpenedChecker()
 						end
 
 						if CombatTool then CombatTool.Parent = Backpack end
@@ -798,8 +892,8 @@ task.spawn(function()
 end)
 
 --FirstExecute
+FirstExecute()
 HumanoidDied()
 AntiSeat()
-Setup()
 FlyStud("spawn")
-Webhook("Online")
+Setup()
