@@ -1,5 +1,3 @@
-print(getgenv().SharedData.Settings.Interval)
-
 local CoreGui = game:GetService("CoreGui")
 local TeleportService = game:GetService("TeleportService")
 local VirtualUser = game:GetService("VirtualUser")
@@ -269,7 +267,7 @@ function FirstExecute()
 	task.spawn(function()
 		if VALUES.Settings.DiscordWebHook then
 			Webhook("MoneyInfo")
-			while task.wait(Interval*60) do
+			while task.wait(VALUES.Settings.Interval*60) do
 				Webhook("MoneyInfo")
 			end
 		end
