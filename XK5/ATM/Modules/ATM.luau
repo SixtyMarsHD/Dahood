@@ -213,7 +213,7 @@ function Webhook(Mode, Modname)
         			},
 					{
           				"name": "Atms",
-          				"value": "]]..tostring(VALUES.SharedData.ATM.AtmsOpened)..[[",
+          				"value": "]]..tostring(getgenv().SharedData.ATM.AtmsOpened)..[[",
           				"inline": true
         			},
 					{
