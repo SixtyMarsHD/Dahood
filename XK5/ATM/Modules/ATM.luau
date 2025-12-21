@@ -203,7 +203,7 @@ function Webhook(Mode, Modname)
         			},
         			{
           				"name": "Profit",
-          				"value": "TEST",
+          				"value": "]]..tostring(getgenv().SharedData.ATM.Profit)..[[",
           				"inline": true
         			},
 					{
