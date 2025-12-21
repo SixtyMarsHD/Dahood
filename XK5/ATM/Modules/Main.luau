@@ -18,7 +18,7 @@ getgenv().SharedData = {
         ["FarmingTime"] = 0,
         ["AtmsOpened"] = 0,
         ["Profit"] = 0,
-
+        ["MoneyBefore"] = 0,
     }
 }
 
@@ -26,7 +26,8 @@ getgenv().SharedData = {
 local MODULES = {
     ATM_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/ATM.luau"),
     RedeemCodes_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/RedeemCodes.luau"),
-    WatchADS_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/WatchADS.luau")
+    WatchADS_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/WatchADS.luau"),
+    Misc_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/Misc.luau")
 }
 
 for _, Script in pairs(MODULES) do

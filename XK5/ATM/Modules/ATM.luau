@@ -173,12 +173,27 @@ function Webhook(Mode, Modname)
 	end
 
 	local function MoneyInfo_webhook(name)
+		local Profit = Player.DataFolder.Currency - getgenv().SharedData.ATM.MoneyBefore
+
+		local function FormatMoney(n)
+    		local suffix = {"", "k", "m", "b"}
+    		local i = 1
+    		while n >= 1000 and i < #suffix do
+        		n = n / 1000
+        		i = i + 1
+    		end
+    		if n % 1 == 0 then
+        		return ("%d%s"):format(n, suffix[i])
+    		else
+        		return ("%.1f%s"):format(n, suffix[i])
+    		end
+		end
+
 		local time = getgenv().SharedData.ATM.FarmingTime
 		local d = math.floor(time/86400)
 		local h = math.floor(time%86400/3600)
 		local m = math.floor(time%3600/60)
 		local s = math.floor(time%60)
-
 		local formatted = (d>0 and d.."d " or "") .. ((h>0 or d>0) and h.."h " or "") .. ((m>0 or h>0 or d>0) and m.."m " or "") ..  s.."s"
 
 		local body = [[{
@@ -253,6 +268,8 @@ end
 function FirstExecute()
 	Webhook("Online")
 	setfpscap(tonumber(VALUES.Settings.FpsCap))
+
+	getgenv().SharedData.ATM.MoneyBefore = Player.DataFolder.Currency.Value
 
 	if VALUES.Settings.Disable3DRendering then
 		game:GetService("RunService"):Set3dRenderingEnabled(false)
@@ -604,7 +621,7 @@ function Debug(Mode, Parent, Value)
 				Ball.CanCollide = false
 				Ball.Color = Color3.fromRGB(255, 0, 0)
 
-				while Ball do
+				while Ball and Ball.Parent do
 					Ball.Position = Parent.Position
 					task.wait()
 				end
@@ -784,6 +801,8 @@ function HumanoidDied()
 end
 
 Player.CharacterAdded:Connect(function()
+	VALUES.Value.CollectOnDeath = false
+	Debug("CharBall", HumRoot, false)
 	Update()
 	HumanoidDied()
 	Setup()
