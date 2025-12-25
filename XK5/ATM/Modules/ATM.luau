@@ -9,7 +9,7 @@ local HumRoot = Char:WaitForChild("HumanoidRootPart")
 local Humanoid = Char:WaitForChild("Humanoid")
 local Backpack = Player.Backpack
 local PlayerGui = Player:WaitForChild("PlayerGui")
-
+ 
 local MainScreenGui = PlayerGui:WaitForChild("MainScreenGui")
 local CashierFolder = workspace:WaitForChild("Cashiers")
 
@@ -17,9 +17,7 @@ local CashierFolder = workspace:WaitForChild("Cashiers")
 game.Players.LocalPlayer:WaitForChild("DataFolder")
 task.wait(1)
 
-print("main started")
-
---//Values 
+--//Values
 local VALUES = {
 	CombatTool = nil,
 	FlyStud = nil,
@@ -68,7 +66,7 @@ local VALUES = {
 		OnKick = false,
 	},
 }
-print("values loaded")
+
 --//WebHook
 function Webhook(Mode, Modname)
 
@@ -98,7 +96,7 @@ function Webhook(Mode, Modname)
     	}]]
 
 		request({
-    		Url = VALUES.Settings.DiscordWebHook_URL,
+    		Url = VALUES.Settings.Discord.Status_WebHook_URL,
     		Method = "POST",
     		Headers = {
         		["Content-Type"] = "application/json"
@@ -133,7 +131,7 @@ function Webhook(Mode, Modname)
     	}]]
 
 		request({
-    		Url = VALUES.Settings.DiscordWebHook_URL,
+    		Url = VALUES.Settings.Discord.Status_WebHook_URL,
     		Method = "POST",
     		Headers = {
         		["Content-Type"] = "application/json"
@@ -173,7 +171,7 @@ function Webhook(Mode, Modname)
     	}]]
 
 		request({
-    		Url = VALUES.Settings.DiscordWebHook_URL,
+    		Url = VALUES.Settings.Discord.Status_WebHook_URL,
     		Method = "POST",
     		Headers = {
         		["Content-Type"] = "application/json"
@@ -251,7 +249,7 @@ function Webhook(Mode, Modname)
     	}]]
 
 		request({
-    		Url = VALUES.Settings.DiscordWebHook_URL,
+    		Url = VALUES.Settings.Discord.Info_WebHook_URL,
     		Method = "POST",
     		Headers = {
         		["Content-Type"] = "application/json"
@@ -260,7 +258,7 @@ function Webhook(Mode, Modname)
 		})
 	end
 
-	if VALUES.Settings.DiscordWebHook then
+	if VALUES.Settings.Discord.WebHooks then
 		if Mode == "Online" then
 			Online_webhook()
 		elseif Mode == "Offline" then
