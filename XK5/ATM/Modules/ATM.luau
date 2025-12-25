@@ -23,17 +23,25 @@ local VALUES = {
 	FlyStud = nil,
 
 	Settings = {
-		ATM = getgenv().SharedData.ATM.Farming,
+		ATM = getgenv().SharedData.Settings.AtmFarm,
 		CollectOnDeath = getgenv().SharedData.Settings.CollectOnDeath,
 		AutoMask = getgenv().SharedData.Settings.AutoMask,
+		AutoUnjail = getgenv().SharedData.Settings.AutoUnjail,
+		AntiStomp = getgenv().SharedData.Settings.AntiStomp,
 		AntiMod = getgenv().SharedData.Settings.AntiMod,
 		FpsBoost = getgenv().SharedData.Settings.FpsBoost,
 		Disable3DRendering = getgenv().SharedData.Settings.Disable3DRendering,
 		FpsCap = getgenv().SharedData.Settings.FpsCap,
-		DiscordWebHook = getgenv().SharedData.Settings.DiscordWebHook,
-		DiscordWebHook_URL = getgenv().SharedData.Settings.DiscordWebHook_URL,
-		Interval = getgenv().SharedData.Settings.Interval,
 		Debug = true,
+		Discord = {
+			WebHooks = getgenv().SharedData.Settings.Discord.WebHooks,
+			Status_WebHook = getgenv().SharedData.Settings.Discord.Status_WebHook,
+			Status_WebHook_URL = getgenv().SharedData.Settings.Discord.Status_WebHook_URL,
+			Status_WebHook_Interval = getgenv().SharedData.Settings.Discord.Status_WebHook_Interval,
+			Info_WebHook = getgenv().SharedData.Settings.Discord.Info_WebHook,
+			Info_WebHook_URL= getgenv().SharedData.Settings.Discord.Info_WebHook_URL,
+			Info_WebHook_Interval = getgenv().SharedData.Settings.Discord.Info_WebHook_Interval,
+		}
 	},
 
 	Value = {
@@ -419,20 +427,22 @@ function FlyStud(Mode)
 end
 
 function AntiStomp()
-	if (Char and Char:FindFirstChild("BodyEffects") and Char:FindFirstChild("BodyEffects"):FindFirstChild("K.O") and Char:FindFirstChild("BodyEffects"):FindFirstChild("Dead")) or (Char and Char:FindFirstChild("GRABBING_CONSTRAINT")) then
-		local KO_Value = Char:FindFirstChild("BodyEffects"):FindFirstChild("K.O")
-		local Dead_Value = Char:FindFirstChild("BodyEffects"):FindFirstChild("Dead")
-		local GRABBING = Char:FindFirstChild("GRABBING_CONSTRAINT")
-		if (KO_Value.Value and not VALUES.State.AntiStomp) or (GRABBING and not VALUES.State.AntiStomp) or (Dead_Value.Value and not VALUES.State.AntiStomp) then
-			VALUES.State.AntiStomp = true
-			Humanoid.Health = 0
-			task.delay(2.5, function()
-				VALUES.Value.CollectOnDeathath = false
-			end)
-			repeat
-				task.wait()
-			until VALUES.FlyStud ~= nil
-			VALUES.State.AntiStomp = false
+	if VALUES.Settings.AntiStomp then
+		if (Char and Char:FindFirstChild("BodyEffects") and Char:FindFirstChild("BodyEffects"):FindFirstChild("K.O") and Char:FindFirstChild("BodyEffects"):FindFirstChild("Dead")) or (Char and Char:FindFirstChild("GRABBING_CONSTRAINT")) then
+			local KO_Value = Char:FindFirstChild("BodyEffects"):FindFirstChild("K.O")
+			local Dead_Value = Char:FindFirstChild("BodyEffects"):FindFirstChild("Dead")
+			local GRABBING = Char:FindFirstChild("GRABBING_CONSTRAINT")
+			if (KO_Value.Value and not VALUES.State.AntiStomp) or (GRABBING and not VALUES.State.AntiStomp) or (Dead_Value.Value and not VALUES.State.AntiStomp) then
+				VALUES.State.AntiStomp = true
+				Humanoid.Health = 0
+				task.delay(2.5, function()
+					VALUES.Value.CollectOnDeathath = false
+				end)
+				repeat
+					task.wait()
+				until VALUES.FlyStud ~= nil
+				VALUES.State.AntiStomp = false
+			end
 		end
 	end
 end
@@ -507,7 +517,7 @@ function AutoMask()
 end
 
 function AutoUnJail()
-	if Char then
+	if VALUES.Settings.AutoUnjail and Char then
         VALUES.State.UnJail = true
 		if Char:FindFirstChild("[Key]") then
 			local Key = Char:FindFirstChild("[Key]")
@@ -862,7 +872,18 @@ task.spawn(function()
     while wait(0.05) do
 
 		task.spawn(function()
-			--VALUES.Settings.ATM = getgenv().SharedData.ATM.Farming
+			VALUES.Settings.ATM = getgenv().SharedData.ATM.Farming
+
+			VALUES.Settings.AutoMask = getgenv().SharedData.Settings.AutoMask
+			VALUES.Settings.AutoUnjail = getgenv().SharedData.Settings.AutoUnjail
+			VALUES.Settings.CollectOnDeath = getgenv().SharedData.Settings.CollectOnDeath
+
+			VALUES.Settings.AntiStomp = getgenv().SharedData.Settings.AntiStomp
+			VALUES.Settings.AntiMod = getgenv().SharedData.Settings.AntiMod
+
+			VALUES.Settings.FpsCap = getgenv().SharedData.Settings.FpsCap
+			VALUES.Settings.FpsBoost = getgenv().SharedData.Settings.FpsBoost
+			VALUES.Settings.Disable3DRendering = getgenv().SharedData.Settings.Disable3DRendering
 		end)
 
 		task.spawn(function()
