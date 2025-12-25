@@ -23,24 +23,24 @@ local VALUES = {
 	FlyStud = nil,
 
 	Settings = {
-		ATM = true,
-		CollectOnDeath = true,
-		AutoMask = true,
-		AutoUnjail = true,
-		AntiStomp = true,
-		AntiMod = true,
-		FpsBoost = false,
-		Disable3DRendering = false,
-		FpsCap = "60",
+		ATM = getgenv().SharedData.Settings.AtmFarm,
+		CollectOnDeath = getgenv().SharedData.Settings.CollectOnDeath,
+		AutoMask = getgenv().SharedData.Settings.AutoMask,
+		AutoUnjail = getgenv().SharedData.Settings.AutoUnjail,
+		AntiStomp = getgenv().SharedData.Settings.AntiStomp,
+		AntiMod = getgenv().SharedData.Settings.AntiMod,
+		FpsBoost = getgenv().SharedData.Settings.FpsBoost,
+		Disable3DRendering = getgenv().SharedData.Settings.Disable3DRendering,
+		FpsCap = getgenv().SharedData.Settings.FpsCap,
 		Debug = true,
 		Discord = {
-			WebHooks = true,
-			Status_WebHook = true,
-			Status_WebHook_URL = "https://discord.com/api/webhooks/1449336974283640925/dt9Mwv6m5AwlamzFEuhQypUfbcCEzRybc0gnMd-yNM4SIlUhBmxT-gXJJfAvW2uNiXl8",
-			Status_WebHook_Interval = "5",
-			Info_WebHook = true,
-			Info_WebHook_URL= "https://discord.com/api/webhooks/1449336974283640925/dt9Mwv6m5AwlamzFEuhQypUfbcCEzRybc0gnMd-yNM4SIlUhBmxT-gXJJfAvW2uNiXl8",
-			Info_WebHook_Interval = "5",
+			WebHooks = getgenv().SharedData.Settings.Discord.WebHooks,
+			Status_WebHook = getgenv().SharedData.Settings.Discord.Status_WebHook,
+			Status_WebHook_URL = getgenv().SharedData.Settings.Discord.Status_WebHook_URL,
+			Status_WebHook_Interval = getgenv().SharedData.Settings.Discord.Status_WebHook_Interval,
+			Info_WebHook = getgenv().SharedData.Settings.Discord.Info_WebHook,
+			Info_WebHook_URL= getgenv().SharedData.Settings.Discord.Info_WebHook_URL,
+			Info_WebHook_Interval = getgenv().SharedData.Settings.Discord.Info_WebHook_Interval,
 		}
 	},
 
@@ -277,7 +277,7 @@ function FirstExecute()
 	Webhook("Online")
 	setfpscap(tonumber(VALUES.Settings.FpsCap))
 
-	--getgenv().SharedData.ATM.MoneyBefore = Player.DataFolder.Currency.Value
+	getgenv().SharedData.ATM.MoneyBefore = Player.DataFolder.Currency.Value
 
 	if VALUES.Settings.Disable3DRendering then
 		game:GetService("RunService"):Set3dRenderingEnabled(false)
@@ -285,7 +285,7 @@ function FirstExecute()
 
 	task.spawn(function()
 		while task.wait(1) do
-			--getgenv().SharedData.ATM.FarmingTime += 1
+			getgenv().SharedData.ATM.FarmingTime += 1
 		end
 	end)
 
@@ -711,7 +711,7 @@ local function ATM()
 
 						local function AtmsOpenedChecker()
 							if v.Health <= 0 and not VALUES.Value.Respawn then
-								--getgenv().SharedData.ATM.AtmsOpened += 1
+								getgenv().SharedData.ATM.AtmsOpened += 1
 							end
 						end
 
