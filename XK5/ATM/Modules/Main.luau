@@ -1,6 +1,8 @@
+local Settings = getgenv().Settings or {}
 getgenv().SharedData = {
     Settings = {
         AtmFarm = Settings.AtmFarm,
+        Gui = Settings.Gui,
         CollectOnDeath = Settings.CollectOnDeath,
         AutoMask = Settings.AutoMask,
         AutoUnjail = Settings.AutoUnjail,
