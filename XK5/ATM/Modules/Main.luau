@@ -2,6 +2,7 @@ getgenv().SharedData = {
     Settings = {
         ["CollectOnDeath"] = getgenv().Settings.CollectOnDeath,
         ["AutoMask"] = getgenv().Settings.AutoMask,
+        ["AutoUnjail"] = getgenv().Settings.AutoUnjail,
         ["AntiMod"] = getgenv().Settings.AntiMod,
         ["DiscordWebHook"] = getgenv().Settings.DiscordWebHook,
         ["DiscordWebHook_URL"] = getgenv().Settings.DiscordWebHook_URL,
