@@ -1,5 +1,7 @@
 getgenv().Settings = {
-    
+    ["AtmFarm"] = true,
+    ["Gui"] = true,
+
     ["CollectOnDeath"] = true, --Collect money even if you die
     ["AutoMask"] = true,  --Automatically buy a mask and put it on (hide your name)
     ["AntiMod"] = true, --If a mod is in the game or joins, you will be kicked
