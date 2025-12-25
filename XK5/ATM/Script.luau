@@ -8,10 +8,15 @@ getgenv().Settings = {
     ["FpsBoost"] = false, --Deletes the map
     ["Disable3DRendering"] = false, --If Disable3DRendering is true then "FpsBoost" is useless!
 
-    ["DiscordWebHook"] = true, --DiscordWebHook true/false (DiscordWebHook_URL is required!)
-    ["DiscordWebHook_URL"] = "https://discord.com/api/webhooks/1449336974283640925/dt9Mwv6m5AwlamzFEuhQypUfbcCEzRybc0gnMd-yNM4SIlUhBmxT-gXJJfAvW2uNiXl8", --Put here Discord-WebHook-URL
-    ["Interval"] = 5, --Interval in minutes for Discord WebHook messages
+    ["WebHooks"] = true, --DiscordWebHook true/false (DiscordWebHook_URL is required!)
+    ["Status"] = true,
+    ["URL_Status"] = "https://discord.com/api/webhooks/1449336974283640925/dt9Mwv6m5AwlamzFEuhQypUfbcCEzRybc0gnMd-yNM4SIlUhBmxT-gXJJfAvW2uNiXl8", --Put here Discord-WebHook-URL
+    ["Interval_Status"] = 5, --Interval in minutes for Discord WebHook messages
 
+    ["Info"] = true,
+    ["URL_Info"] = "https://discord.com/api/webhooks/1449336974283640925/dt9Mwv6m5AwlamzFEuhQypUfbcCEzRybc0gnMd-yNM4SIlUhBmxT-gXJJfAvW2uNiXl8", --Put here Discord-WebHook-URL
+    ["Interval_Info"] = 5, --Interval in minutes for Discord WebHook messages
+    
     ["AutoRedeemCodes"] = true, --Automatically redeems all available codes
     ["AutoWatchADS"] = true, --Automatically watches ads and claim the reward
 }
