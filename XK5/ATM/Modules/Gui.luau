@@ -21,6 +21,7 @@ Tab_1:AddToggle({
     Flag = "tab_1_ATM-Farm",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.AtmFarm = Value
 	end    
 })
 
@@ -99,14 +100,11 @@ Tab_2:AddTextbox({
 	end	  
 })
 
-Tab_2:AddToggle({
+Tab_2:AddButton({
 	Name = "FpsBoost",
-	Default = false,
-    Save = true,
-    Flag = "tab_2_AntiMod",
-	Callback = function(Value)
-		print(Value)
-	end    
+	Callback = function()
+      	print("button pressed")
+  	end    
 })
 Tab_2:AddParagraph("Warning","This will delete the whole map")
 
