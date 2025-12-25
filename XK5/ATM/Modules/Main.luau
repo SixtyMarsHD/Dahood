@@ -39,10 +39,15 @@ local MODULES = {
     ATM_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/ATM.luau"),
     RedeemCodes_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/RedeemCodes.luau"),
     WatchADS_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/WatchADS.luau"),
-    Misc_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/Misc.luau")
+    Misc_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/Misc.luau"),
+    Gui_Script = game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Dahood/refs/heads/main/XK5/ATM/Modules/Gui.luau")
 }
 
-for _, Script in pairs(MODULES) do
+for Name, Script in pairs(MODULES) do
+    if Name == "Gui_Script" and not getgenv().SharedData.Settings.Gui then
+        continue
+    end
+
     task.spawn(function()
         pcall(function()
             loadstring(Script)()
