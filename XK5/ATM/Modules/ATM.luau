@@ -275,13 +275,20 @@ end
 --//Modules
 function FirstExecute()
 	Webhook("Online")
-	setfpscap(tonumber(VALUES.Settings.FpsCap))
+
+	task.spawn(function()
+		while task.wait(0.1) do
+			setfpscap(tonumber(VALUES.Settings.FpsCap))
+
+			if VALUES.Settings.Disable3DRendering then
+				game:GetService("RunService"):Set3dRenderingEnabled(false)
+			else
+				game:GetService("RunService"):Set3dRenderingEnabled(true)
+			end
+		end
+	end)
 
 	getgenv().SharedData.ATM.MoneyBefore = Player.DataFolder.Currency.Value
-
-	if VALUES.Settings.Disable3DRendering then
-		game:GetService("RunService"):Set3dRenderingEnabled(false)
-	end
 
 	task.spawn(function()
 		while task.wait(1) do
@@ -290,7 +297,7 @@ function FirstExecute()
 	end)
 
 	task.spawn(function()
-		if VALUES.Settings.DiscordWebHook then
+		if VALUES.Settings.Discord.Info_WebHook then
 			Webhook("MoneyInfo")
 			while task.wait(VALUES.Settings.Interval*60) do
 				Webhook("MoneyInfo")
@@ -935,15 +942,10 @@ task.spawn(function()
 
     end
 end)
-print("FirstExecute")
+
 --FirstExecute
 FirstExecute()
-print("1")
 HumanoidDied()
-print("2")
 AntiSeat()
-print("3")
 FlyStud("spawn")
-print("4")
 Setup()
-print("6")
