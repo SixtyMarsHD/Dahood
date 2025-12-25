@@ -17,7 +17,9 @@ local CashierFolder = workspace:WaitForChild("Cashiers")
 game.Players.LocalPlayer:WaitForChild("DataFolder")
 task.wait(1)
 
---//Values
+print("main started")
+
+--//Values 
 local VALUES = {
 	CombatTool = nil,
 	FlyStud = nil,
@@ -66,7 +68,7 @@ local VALUES = {
 		OnKick = false,
 	},
 }
-
+print("values loaded")
 --//WebHook
 function Webhook(Mode, Modname)
 
