@@ -36,6 +36,7 @@ Tab_1:AddToggle({
     Flag = "tab_1_AutoMask",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.AutoMask  = Value
 	end    
 })
 
@@ -46,6 +47,7 @@ Tab_1:AddToggle({
     Flag = "tab_1_CollectOnDeath",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.CollectOnDeath = Value
 	end    
 })
 
@@ -56,6 +58,7 @@ Tab_1:AddToggle({
     Flag = "tab_1_AutoUnJail",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.AutoUnJail = Value
 	end    
 })
 
@@ -70,6 +73,7 @@ Tab_1:AddToggle({
     Flag = "tab_1_AntiStomp",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.AntiStomp = Value
 	end    
 })
 
@@ -80,6 +84,7 @@ Tab_1:AddToggle({
     Flag = "tab_1_AntiMod",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.AntiMod = Value
 	end    
 })
 
@@ -97,6 +102,7 @@ Tab_2:AddTextbox({
     Flag = "tab_2_FpsCap",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.FpsCap = Value
 	end	  
 })
 
@@ -104,6 +110,7 @@ Tab_2:AddButton({
 	Name = "FpsBoost",
 	Callback = function()
       	print("button pressed")
+		getgenv().SharedData.Settings.FpsBoost = true
   	end    
 })
 Tab_2:AddParagraph("Warning","This will delete the whole map")
@@ -115,6 +122,7 @@ Tab_2:AddToggle({
     Flag = "tab_2_Disable3DRendering",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.Disable3DRendering = Value
 	end    
 })
 Tab_2:AddParagraph("Warning","This will use a lot of memory over time and may eventually crash")
@@ -132,6 +140,7 @@ Tab_3:AddToggle({
     Flag = "tab_3_EnableWebHooks",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.Discord.WebHooks = Value
 	end    
 })
 
@@ -146,6 +155,7 @@ Tab_3:AddToggle({
     Flag = "tab_3_DiscordWebHook",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.Discord.Status_WebHook = Value
 	end    
 })
 
@@ -157,6 +167,7 @@ Tab_3:AddTextbox({
     Flag = "tab_3_WebHook-URL",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.Discord.Status_WebHook_URL = Value
 	end	  
 })
 
@@ -168,6 +179,7 @@ Tab_3:AddTextbox({
     Flag = "tab_3_Interval",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.Discord.Status_WebHook_Interval = Value
 	end	  
 })
 
@@ -182,6 +194,7 @@ Tab_3:AddToggle({
     Flag = "tab_3_DiscordWebHook",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.Discord.Info_WebHook = Value
 	end    
 })
 
@@ -193,6 +206,7 @@ Tab_3:AddTextbox({
     Flag = "tab_3_WebHook-URL",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.Discord.Info_WebHook_URL = Value
 	end	  
 })
 
@@ -204,6 +218,7 @@ Tab_3:AddTextbox({
     Flag = "tab_3_Interval",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.Discord.Info_WebHook_Interval = Value
 	end	  
 })
 
@@ -227,6 +242,7 @@ Tab_4:AddToggle({
     Flag = "tab_4_AutoRedeemCodes",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.AutoRedeemCodes = Value
 	end    
 })
 
@@ -237,6 +253,7 @@ Tab_4:AddToggle({
     Flag = "tab_4_AutoWatchADS",
 	Callback = function(Value)
 		print(Value)
+		getgenv().SharedData.Settings.AutoWatchADS = Value
 	end    
 })
 
