@@ -872,7 +872,7 @@ task.spawn(function()
     while wait(0.05) do
 
 		task.spawn(function()
-			VALUES.Settings.ATM = getgenv().SharedData.ATM.Farming
+			VALUES.Settings.ATM = getgenv().SharedData.Settings.AtmFarm
 
 			VALUES.Settings.AutoMask = getgenv().SharedData.Settings.AutoMask
 			VALUES.Settings.AutoUnjail = getgenv().SharedData.Settings.AutoUnjail
