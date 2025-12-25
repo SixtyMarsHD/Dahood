@@ -872,18 +872,18 @@ task.spawn(function()
     while wait(0.05) do
 
 		task.spawn(function()
-			--VALUES.Settings.ATM = getgenv().SharedData.ATM.Farming
+			VALUES.Settings.ATM = getgenv().SharedData.ATM.Farming
 
-			--VALUES.Settings.AutoMask = getgenv().SharedData.Settings.AutoMask
-			--VALUES.Settings.AutoUnjail = getgenv().SharedData.Settings.AutoUnjail
-			--VALUES.Settings.CollectOnDeath = getgenv().SharedData.Settings.CollectOnDeath
+			VALUES.Settings.AutoMask = getgenv().SharedData.Settings.AutoMask
+			VALUES.Settings.AutoUnjail = getgenv().SharedData.Settings.AutoUnjail
+			VALUES.Settings.CollectOnDeath = getgenv().SharedData.Settings.CollectOnDeath
 
-			--VALUES.Settings.AntiStomp = getgenv().SharedData.Settings.AntiStomp
-			--VALUES.Settings.AntiMod = getgenv().SharedData.Settings.AntiMod
+			VALUES.Settings.AntiStomp = getgenv().SharedData.Settings.AntiStomp
+			VALUES.Settings.AntiMod = getgenv().SharedData.Settings.AntiMod
 
-			--VALUES.Settings.FpsCap = getgenv().SharedData.Settings.FpsCap
-			--VALUES.Settings.FpsBoost = getgenv().SharedData.Settings.FpsBoost
-			--VALUES.Settings.Disable3DRendering = getgenv().SharedData.Settings.Disable3DRendering
+			VALUES.Settings.FpsCap = getgenv().SharedData.Settings.FpsCap
+			VALUES.Settings.FpsBoost = getgenv().SharedData.Settings.FpsBoost
+			VALUES.Settings.Disable3DRendering = getgenv().SharedData.Settings.Disable3DRendering
 		end)
 
 		task.spawn(function()
