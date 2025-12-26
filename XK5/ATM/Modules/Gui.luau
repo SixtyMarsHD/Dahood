@@ -164,12 +164,15 @@ Tab_3:AddToggle({
 Tab_3:AddTextbox({
 	Name = "WebHook-URL",
 	Default = "",
-	TextDisappear = true,
+	TextDisappear = false,
 	Save = true,
     Flag = "tab_3_WebHook-URL",
 	Callback = function(Value)
 		print(Value)
-		getgenv().SharedData.Settings.Discord.Status_WebHook_URL = Value
+		local url = getgenv().SharedData.Settings.Discord.Status_WebHook_URL
+		if url and url ~= "" and url ~= " " then
+			url = Value
+		end
 	end	  
 })
 
@@ -203,12 +206,15 @@ Tab_3:AddToggle({
 Tab_3:AddTextbox({
 	Name = "WebHook-URL",
 	Default = "",
-	TextDisappear = true,
+	TextDisappear = false,
 	Save = true,
     Flag = "tab_3_WebHook-URL",
 	Callback = function(Value)
 		print(Value)
-		getgenv().SharedData.Settings.Discord.Info_WebHook_URL = Value
+		local url = getgenv().SharedData.Settings.Discord.Info_WebHook_URL
+		if url and url ~= "" and url ~= " " then
+			url = Value
+		end
 	end	  
 })
 
