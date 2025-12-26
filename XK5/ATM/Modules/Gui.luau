@@ -1,3 +1,10 @@
+local Data = {
+	Discord = {
+		Status_WebHook_Flag = "tab_3_Status_URL",
+		Info_WebHook_Flag = "tab_3_Info_URL",
+	}
+}
+
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SixtyMarsHD/Orion-Library-Fixed/refs/heads/main/new"))()
 
 local Window = OrionLib:MakeWindow({
@@ -9,6 +16,10 @@ local Window = OrionLib:MakeWindow({
     SaveConfig = true, 
     ConfigFolder = "XK5/DaHood/ATM-Farm"
 })
+
+function Save()
+	OrionLib:SaveConfig()
+end
 
 --//TAB_1
 local Tab_1 = Window:MakeTab({
@@ -161,27 +172,28 @@ Tab_3:AddToggle({
 	end    
 })
 
+if typeof(getgenv().SharedData.Settings.Discord.Status_WebHook_URL) == "string" and getgenv().SharedData.Settings.Discord.Status_WebHook_URL:find("https://discord.com/api/webhooks", 1, true) then
+   Data.Discord.Status_WebHook_Flag = ""
+end
+
 Tab_3:AddTextbox({
 	Name = "WebHook-URL",
-	Default = "",
+	Default = getgenv().SharedData.Settings.Discord.Status_WebHook_URL,
 	TextDisappear = false,
 	Save = true,
-    Flag = "tab_3_WebHook-URL",
+    Flag = Data.Discord.Status_WebHook_Flag,
 	Callback = function(Value)
 		print(Value)
-		local url = getgenv().SharedData.Settings.Discord.Status_WebHook_URL
-		if url and url ~= "" and url ~= " " then
-			url = Value
-		end
+		getgenv().SharedData.Settings.Discord.Status_WebHook_URL = Value
 	end	  
 })
 
 Tab_3:AddTextbox({
 	Name = "Interval",
 	Default = "5",
-	TextDisappear = true,
+	TextDisappear = false,
 	Save = true,
-    Flag = "tab_3_Interval",
+    Flag = "tab_3_Staus_Interval",
 	Callback = function(Value)
 		print(Value)
 		getgenv().SharedData.Settings.Discord.Status_WebHook_Interval = Value
@@ -203,27 +215,28 @@ Tab_3:AddToggle({
 	end    
 })
 
+if typeof(getgenv().SharedData.Settings.Discord.Info_WebHook_URL) == "string" and getgenv().SharedData.Settings.Discord.Info_WebHook_URL:find("https://discord.com/api/webhooks", 1, true) then
+   Data.Discord.Info_WebHook_Flag = ""
+end
+
 Tab_3:AddTextbox({
 	Name = "WebHook-URL",
-	Default = "",
+	Default = getgenv().SharedData.Settings.Discord.Info_WebHook_URL,
 	TextDisappear = false,
 	Save = true,
-    Flag = "tab_3_WebHook-URL",
+    Flag = Data.Discord.Info_WebHook_Flag,
 	Callback = function(Value)
 		print(Value)
-		local url = getgenv().SharedData.Settings.Discord.Info_WebHook_URL
-		if url and url ~= "" and url ~= " " then
-			url = Value
-		end
+		getgenv().SharedData.Settings.Discord.Info_WebHook_URL = Value
 	end	  
 })
 
 Tab_3:AddTextbox({
 	Name = "Interval",
 	Default = "5",
-	TextDisappear = true,
+	TextDisappear = false,
 	Save = true,
-    Flag = "tab_3_Interval",
+    Flag = "tab_3_Info_Interval",
 	Callback = function(Value)
 		print(Value)
 		getgenv().SharedData.Settings.Discord.Info_WebHook_Interval = Value
