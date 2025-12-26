@@ -111,6 +111,7 @@ Tab_2:AddTextbox({
 	Name = "FpsCap",
 	Default = "",
 	TextDisappear = true,
+	OnlyNumbers = true,
 	Save = true,
     Flag = "tab_2_FpsCap",
 	Callback = function(Value)
